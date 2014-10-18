@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteBase /site/api
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /site/api/index.php [QSA]

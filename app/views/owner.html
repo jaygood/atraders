@@ -1,0 +1,12 @@
+
+<div class="row marketing">
+  <h3>OWNER</h3>
+  <div>
+    <div style="border-radius: 1em;padding:.5em;" ng-show="oneOwner"
+        ng-class="{myred: (oneOwner.id % 2), mygreen: !(oneOwner.id % 2)}">
+      <h4>{{oneOwner.rptOwnerName}}</h4>
+      <p>{{oneOwner.id}}</p>
+      <p>{{oneOwner.rptOwnerCity}}, {{oneOwner.rptOwnerState}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="col-sm-6" style="padding:2em 0">
+  <form name="itemForm" ng-submit="submit(item)" novalidate><fieldset>
+    <legend>My Form</legend>
+
+    <!-- USERNAME -->
+    <div class="form-group" ng-class="{'has-error': itemForm.itemname.$invalid && !itemForm.itemname.$pristine}">
+      <label for="itemname">Itemname</label>
+      <input type="text" name="itemname" class="form-control" placeholder="Enter a itemname" required
+        ng-model="item.itemname" ng-minlength="3" ng-maxlength="15" jd-focus>
+    </div>
+
+    <!-- PHRASE -->
+    <div class="form-group" ng-class="{'has-error': itemForm.phrase.$invalid && !itemForm.phrase.$pristine}">
+      <label for="phrase">Phrase</label>
+      <input type="text" name="phrase" class="form-control" placeholder="Enter a Phrase"
+        ng-model="item.phrase">
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-disabled="itemForm.$invalid">Submit</button>
+  </fieldset>
+  </form>
+</div>
+
+<ul style="clear:both">
+  <li ng-repeat="(key, item) in items">{{key}} :::: { {{item.itemname}}, {{item.phrase}} }
+    <a class="btn" ng-click="eraseItem(key)">Remove</a>
+    <a class="btn" ng-click="editItem(key)">Edit</a>
+  </li>
+</ul>

@@ -1,0 +1,21 @@
+
+<div class="row marketing">
+  <h3>OWNERS</h3>
+  <a class="owners" ng-repeat="owner in owners | limitTo: 5" ng-href="http://atradersguide.com/site/app/#/owner/{{owner.id}}">
+    <h4>{{owner.rptOwnerName}}</h4>
+    <p>{{owner.rptOwnerCity}}, {{owner.rptOwnerState}}</p>
+  </a>
+  <br><hr>
+  <h3>CHOOSE OWNER</h3>
+  <div>
+    <input type="text" ng-model="ownerNumb">
+    <button class="btn btn-default" ng-click="searchOwners(ownerNumb)">Search</button>
+    <div ng-class="{'myred': (oneOwner.id % 2), 'mygreen': !(oneOwner.id % 2)}"
+         style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.id">
+      <a class="owners" ng-href="http://atradersguide.com/site/app/#/owner/{{oneOwner.id}}">
+        <h4>{{oneOwner.rptOwnerName}}</h4>
+        <p>{{oneOwner.rptOwnerCity}}, {{oneOwner.rptOwnerState}}</p>
+      </a>
+    </div>
+  </div>
+</div>
