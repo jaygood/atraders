@@ -2,7 +2,7 @@
 //
 // angular.module('frameworkApp')
 //
-//   .controller('RequestController', ['$scope', '$timeout', 'otherService'
+//   .controller('RequestCtrl', ['$scope', '$timeout', 'otherService'
 //     function($scope, $timeout, otherService) {
 //       var timeout;
 //       $scope.$watch('username', function(newVal) {

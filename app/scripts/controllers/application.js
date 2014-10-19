@@ -2,7 +2,7 @@
 
 angular.module('frameworkApp')
 
-  .controller('ApplicationController', ['$scope', 'userService', function ($scope, userService) {
+  .controller('ApplicationCtrl', ['$scope', 'userService', function ($scope, userService) {
 
     // watch login and logout
     // the user object is referenced and thus cannot be set directly to scope

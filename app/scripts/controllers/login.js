@@ -1,7 +1,7 @@
 'use strict';
 angular.module('frameworkApp')
 
-  .controller('LoginController', ['$scope', '$location', 'userService', 'blurService',
+  .controller('LoginCtrl', ['$scope', '$location', 'userService', 'blurService',
     function ($scope, $location, userService, blurService) {
       $scope.blurHash = blurService.blurHash;
       $scope.user = userService.formUser;

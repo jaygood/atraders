@@ -1,7 +1,7 @@
 'use strict';
 angular.module('frameworkApp')
 
-  .controller('DashController', ['$scope', 'itemService',
+  .controller('DashCtrl', ['$scope', 'itemService',
     function ($scope, itemService) {
       $scope.items = itemService.items;
       $scope.item = {};

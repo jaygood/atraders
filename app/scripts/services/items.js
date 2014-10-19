@@ -10,7 +10,7 @@ angular.module('frameworkApp')
     });
   })
 
-  .controller('ResourceController', function($scope, Items){
+  .controller('ResourceCtrl', function($scope, Items){
     // get
     var entry = Items.get({id: $scope.id}, function(){
       console.log(entry);
