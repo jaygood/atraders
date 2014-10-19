@@ -10,10 +10,11 @@ angular.module('frameworkApp')
       scope: {
         link: '=jdInfo'
       },
-      template: '<li><a ng-href="{{link.ref}}" ng-bind="link.label"></a></li>',
+      transclude: true,
+      template: '<li><a ng-href="{{link.ref}}" ng-transclude></a></li>',
       link: function(scope, element, attrs) {
         scope.$on("$routeChangeSuccess", function (event, current, previous) {
-          if (current.$$route.hash === scope['link'].ref){ //attrs['jdInfo'])
+          if (current.$$route.originalPath === scope['link'].ref){ //attrs['jdInfo'])
             element.addClass(scope['link'].activeClass);
           }
           else{

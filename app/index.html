@@ -29,15 +29,15 @@
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationController">
         <ul class="nav nav-pills pull-right">
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/', label:'Home'}"></jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/about', label:'About'}"></jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/owners', label:'Owners'}"></jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/login', label:'Login'}"
-            ng-hide="user"></jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/signup', label:'Sign Up'}"
-            ng-hide="user"></jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'#/dashboard', label:'Dashboard'}"
-            ng-show="user"></jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/'}">Home</jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/about'}">About</jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/owners'}">Owners</jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/login'}"
+            ng-hide="user">Login</jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/signup'}"
+            ng-hide="user">Sign Up</jd-nav-tab>
+          <jd-nav-tab jd-info="{activeClass:'active', ref:'/dashboard'}"
+            ng-show="user">Dashboard</jd-nav-tab>
         </ul>
 
         <h3 class="text-muted">

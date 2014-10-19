@@ -13,38 +13,31 @@ angular.module('frameworkApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        hash: '#/'
+        controller: 'MainCtrl'
       })
       .when('/owners', {
         templateUrl: 'views/phpUsers.html',
-        controller: 'PhpCtrl',
-        hash: '#/owners'
+        controller: 'PhpCtrl'
       })
       .when('/owner/:owner', {
         templateUrl: 'views/owner.html',
-        controller: 'OwnerCtrl',
-        hash: '#/owner'
+        controller: 'OwnerCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        hash: '#/about'
+        controller: 'AboutCtrl'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'LoginController',
-        hash: '#/login'
+        controller: 'LoginCtrl'
       })
       .when('/signup', {
         templateUrl: 'views/login.html',
-        controller: 'LoginController',
-        hash: '#/signup'
+        controller: 'LoginCtrl'
       })
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
-        controller: 'DashController',
-        hash: '#/dashboard',
+        controller: 'DashCtrl',
         isRestricted: true
       })
       .otherwise({
