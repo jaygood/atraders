@@ -2,7 +2,8 @@
 angular.module('frameworkApp')
 
   // changes class for current active element within set of tabs
-  // example: <jd-nav-tab jd-info="{activeClass:'active', ref:'#/', label:'Home'}"></jd-nav-tab>
+  // example: <jd-nav-tab jd-info="{activeClass:'active', ref:'/'}">Home</jd-nav-tab>
+  // transcludes the tab name
   .directive('jdNavTab', function () {
     return {
       restrict: 'E',
