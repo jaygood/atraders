@@ -12,7 +12,7 @@ angular.module('frameworkApp')
         link: '=jdInfo'
       },
       transclude: true,
-      template: '<li><a ng-href="{{link.ref}}" ng-transclude></a></li>',
+      template: '<li><a ng-href="#{{link.ref}}" ng-transclude></a></li>',
       link: function(scope, element, attrs) {
         scope.$on("$routeChangeSuccess", function (event, current, previous) {
           if (current.$$route.originalPath === scope['link'].ref){ //attrs['jdInfo'])
