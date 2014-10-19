@@ -19,7 +19,7 @@ angular.module('frameworkApp', [
         templateUrl: 'views/phpUsers.html',
         controller: 'PhpCtrl'
       })
-      .when('/owner/:owner', {
+      .when('/owners/:owner', {
         templateUrl: 'views/owner.html',
         controller: 'OwnerCtrl'
       })
