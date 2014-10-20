@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frameworkApp')
-  .service('itemService', function (Items) {
+  .service('itemService', ['Items', function (Items) {
     var create, read, readAll, update, del;
     this.items = {
       0: {itemname: "Jon0", phrase: "Hello"},
@@ -68,4 +68,4 @@ angular.module('frameworkApp')
         });
       });
     };
-  })
+  }]);

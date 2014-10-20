@@ -1,8 +1,8 @@
 'use strict';
 angular.module('frameworkApp')
 
-  .controller('LoginCtrl', ['$scope', '$location', 'userService', 'blurService',
-    function ($scope, $location, userService, blurService) {
+  .controller('LoginCtrl', ['$scope', 'userService', 'blurService',
+    function ($scope, userService, blurService) {
       $scope.blurHash = blurService.blurHash;
       $scope.user = userService.formUser;
       $scope.isSignupForm = userService.isSignupRoute();

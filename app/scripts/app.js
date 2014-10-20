@@ -9,19 +9,19 @@ angular.module('frameworkApp', [
 ])
   .constant('DEV_MODE', false)
 
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
       .when('/owners', {
-        templateUrl: 'views/phpUsers.html',
-        controller: 'PhpCtrl'
+        templateUrl: 'views/owners.html',
+        controller: 'OwnersCtrl'
       })
       .when('/owners/:owner', {
         templateUrl: 'views/owner.html',
-        controller: 'OwnerCtrl'
+        controller: 'OwnersCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -43,7 +43,7 @@ angular.module('frameworkApp', [
       .otherwise({
         redirectTo: '/'
       });
-  })
+  }])
 
   .run(['$rootScope', '$location', 'userService', 'DEV_MODE',
   function ($rootScope,  $location, userService, DEV_MODE) {
@@ -62,11 +62,11 @@ angular.module('frameworkApp', [
       }}
     });
 
-    $rootScope.$on('loginEvent', function(data) {
+    $rootScope.$on('loginEvent', ['data', function(data) {
       $location.path('/dashboard');
-    });
+    }]);
 
-    $rootScope.$on('logoutEvent', function(data) {
+    $rootScope.$on('logoutEvent',['data', function(data) {
       $location.path('/login');
-    });
+    }]);
   }])
