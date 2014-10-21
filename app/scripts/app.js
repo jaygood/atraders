@@ -65,12 +65,12 @@ angular.module('frameworkApp', [
     });
 
     // redirects user after login
-    $rootScope.$on('loginEvent', ['data', function(data) {
+    $rootScope.$on('loginEvent', function() {
       $location.path('/dashboard');
-    }]);
+    });
 
     // redirects user after logout
-    $rootScope.$on('logoutEvent',['data', function(data) {
+    $rootScope.$on('logoutEvent', function() {
       $location.path('/login');
-    }]);
-  }])
+    });
+  }]);

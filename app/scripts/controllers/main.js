@@ -2,7 +2,7 @@
  *  Controller to test effects of services and factories
  *  used across multiple controllers and views
  */
- 
+
 'use strict';
 angular.module('frameworkApp')
   .controller('MainCtrl', ['$scope', 'one', 'two', function ($scope, one, two) {
@@ -12,5 +12,5 @@ angular.module('frameworkApp')
       'one',
       'two',
       'three'
-    ]
+    ];
   }]);

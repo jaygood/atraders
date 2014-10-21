@@ -1,6 +1,5 @@
 'use strict';
-
-describe("Application Controller", function() {
+describe('Application Controller', function() {
   var ctrl, scope;
   beforeEach(function(){
     module('frameworkApp');

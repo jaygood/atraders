@@ -19,7 +19,7 @@ angular.module('frameworkApp')
       $scope.submit = function(user){
         if ($scope.userForm.$valid){
           userService.submit(user)
-            .then(function(data) {
+            .then(function(){ // data) {
               // do nothin right now
             });
         }
@@ -29,4 +29,4 @@ angular.module('frameworkApp')
       $scope.addBlur = function(input){
         blurService.addBlur(input);
       };
-  }])
+  }]);

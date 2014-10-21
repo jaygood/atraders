@@ -8,7 +8,6 @@ angular.module('frameworkApp')
       return this.x;
     };
   })
-
   .factory('two', function () {
     var x = 0;
     return {
@@ -16,5 +15,5 @@ angular.module('frameworkApp')
         x++;
         return x;
       }
-    }
+    };
   });

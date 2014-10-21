@@ -1,6 +1,6 @@
 'use strict';
 
-describe("LoginCtrl", function() {
+describe('LoginCtrl', function() {
   beforeEach(function(){
     module('frameworkApp');
   });

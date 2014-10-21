@@ -1,6 +1,6 @@
 'use strict';
 
-describe("Application Controller", function() {
+describe('Owners Controller', function() {
   var ctrl, scope, $httpBackend;
   beforeEach(function(){
     module('frameworkApp');
@@ -14,9 +14,9 @@ describe("Application Controller", function() {
   describe('OwnersCtrl', function(){
     it('should have access to owners service', function() {
       $httpBackend.expectGET('/site/api/owners')
-        .respond([{}])
+        .respond([{}]);
       $httpBackend.expectGET('/site/api/owners/1')
-        .respond({id:1})
+        .respond({id:1});
       scope.searchOwners(1);
       $httpBackend.flush();
       var result = scope.oneOwner;

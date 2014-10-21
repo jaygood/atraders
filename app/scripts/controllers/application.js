@@ -14,7 +14,7 @@ angular.module('frameworkApp')
       function(){
         return userService.isLoggedIn();
       },
-      function (newVal, oldVal) {
+      function (newVal){ // }, oldVal) {
         $scope.user = newVal;
       }
     );
@@ -23,4 +23,4 @@ angular.module('frameworkApp')
     $scope.logout = function(){
       userService.logout();
     };
-  }])
+  }]);

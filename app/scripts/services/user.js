@@ -53,10 +53,10 @@ angular.module('frameworkApp')
             deferred.resolve(pUser);
           })
           .error(function(message, code){
-            console.log(message)
-            console.log(code)
+            console.log(message);
+            console.log(code);
             deferred.reject(message);
-          })
+          });
       };
 
       login = function(user, deferred){
@@ -70,14 +70,14 @@ angular.module('frameworkApp')
               deferred.resolve(pUser);
             }
             else{
-              console.log('Wrong combination')
+              console.log('Wrong combination');
               deferred.reject(data);
             }
           })
           .error(function(message, code){
-            console.log(message)
-            console.log(code)
+            console.log(message);
+            console.log(code);
             deferred.reject(message);
-          })
+          });
       };
   }]);

@@ -20,7 +20,7 @@ angular.module('frameworkApp')
         $scope.item.key = key;
         // refocuses on first input to edit item
         if ('jdFocus' in $scope){
-          $scope['jdFocus'].focus();
+          $scope.jdFocus.focus();
         }
       };
 
@@ -30,8 +30,8 @@ angular.module('frameworkApp')
           $scope.item = {};
           $scope.itemForm.$setPristine();
           // refocuses on first input to add new item
-          if ($scope['jdFocus']){
-            $scope['jdFocus'].focus();
+          if ('jdFocus' in $scope){
+            $scope.jdFocus.focus();
           }
         }
       };

@@ -4,16 +4,16 @@ angular.module('frameworkApp')
   .service('itemService', ['Items', function (Items) {
     var create, read, readAll, update, del;
     this.items = {
-      0: {itemname: "Jon0", phrase: "Hello"},
-      1: {itemname: "Jon1", phrase: "Hello"},
-      2: {itemname: "Jon2", phrase: "Hello"},
-      3: {itemname: "Jon3", phrase: "Hello"}
+      0: {itemname: 'Jon0', phrase: 'Hello'},
+      1: {itemname: 'Jon1', phrase: 'Hello'},
+      2: {itemname: 'Jon2', phrase: 'Hello'},
+      3: {itemname: 'Jon3', phrase: 'Hello'}
     };
 
     this.submit = function(item){
       var newKey = 0;
       if (item.key){
-        delete this.items[item.key].key
+        delete this.items[item.key].key;
       }
       else {
         while(this.items[newKey]){

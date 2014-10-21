@@ -14,11 +14,11 @@ angular.module('frameworkApp')
         password: false,
         email: false
       };
-      return function(){me(that)};
+      return function(){me(that);};
     })(this);
 
     // called from login controllers
     this.addBlur = function(input){
       this.blurHash[input] = true;
     };
-  })
+  });

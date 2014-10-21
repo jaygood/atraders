@@ -14,14 +14,14 @@ describe('Services: Owners', function () {
       $httpBackend.expectGET('/site/api/owners/1')
         .respond({
           id: 1,
-          rptOwnerCik: "0001610900",
-          rptOwnerName: "1987-1988 Richard C Blum Irrevocable Childrens Trust",
-          rptOwnerStreet1: "1133 CONNECTICUT AVENUE NW SUITE 600",
-          rptOwnerStreet2: "",
-          rptOwnerCity: "WASHINGTON",
-          rptOwnerState: "DC",
-          rptOwnerZipCode: "20036",
-          lastupdate: "2014-08-09 13:49:52"
+          rptOwnerCik: '0001610900',
+          rptOwnerName: '1987-1988 Richard C Blum Irrevocable Childrens Trust',
+          rptOwnerStreet1: '1133 CONNECTICUT AVENUE NW SUITE 600',
+          rptOwnerStreet2: '',
+          rptOwnerCity: 'WASHINGTON',
+          rptOwnerState: 'DC',
+          rptOwnerZipCode: '20036',
+          lastupdate: '2014-08-09 13:49:52'
         });
 
       var result = mockResource.get({id: 1});
