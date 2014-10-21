@@ -46,7 +46,7 @@ angular.module('frameworkApp')
         $http.post('data.json', user)
           .success(function(data){
             //this.formUser = {};
-            pUser = data[user.username];
+            pUser = user;
             // create arbitrary key for user identity
             pUser.key =(new Date()).valueOf().toString();
             $rootScope.$emit('loginEvent', data);
@@ -79,10 +79,5 @@ angular.module('frameworkApp')
             console.log(code)
             deferred.reject(message);
           })
-      };
-
-      this.isValidEmail = function(email){
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
       };
   }]);

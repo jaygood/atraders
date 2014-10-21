@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('frameworkApp', [
   'ngCookies',
   'ngResource',
@@ -7,6 +6,7 @@ angular.module('frameworkApp', [
   'ngRoute',
   'ngResource'
 ])
+  // set to true for automatic login
   .constant('DEV_MODE', false)
 
   .config(['$routeProvider', function ($routeProvider) {
@@ -47,6 +47,8 @@ angular.module('frameworkApp', [
 
   .run(['$rootScope', '$location', 'userService', 'DEV_MODE',
   function ($rootScope,  $location, userService, DEV_MODE) {
+
+    // restricts access to certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
       if(!DEV_MODE){
       if (next.$$route.isRestricted){
@@ -62,10 +64,12 @@ angular.module('frameworkApp', [
       }}
     });
 
+    // redirects user after login
     $rootScope.$on('loginEvent', ['data', function(data) {
       $location.path('/dashboard');
     }]);
 
+    // redirects user after logout
     $rootScope.$on('logoutEvent',['data', function(data) {
       $location.path('/login');
     }]);
