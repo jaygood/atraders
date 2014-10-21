@@ -10,7 +10,7 @@ describe('Services: Owners', function () {
   });
 
   describe('API', function () {
-    it('should call get with owner.id', inject(function (owners) {
+    it('should call get with owner.id', function () {
       $httpBackend.expectGET('/site/api/owners/1')
         .respond({
           id: 1,
@@ -27,15 +27,15 @@ describe('Services: Owners', function () {
       var result = mockResource.get({id: 1});
       $httpBackend.flush();
       expect(result.id).toEqual(1);
-    }));
+    });
 
-    it('should query 5 owners', inject(function (owners) {
+    it('should query 5 owners', function () {
       $httpBackend.expectGET('/site/api/owners')
         .respond([{},{},{},{},{}]);
 
       var result = mockResource.query();
       $httpBackend.flush();
       expect(result.length).toEqual(5);
-    }));
+    });
   });
 });

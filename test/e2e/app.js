@@ -16,7 +16,7 @@ describe("E2E: Testing Routes", function() {
       browser.get('#/about');
     });
     it('should have route', function() {
-      expect(browser.getLocationAbsUrl()).toMatch(/about$/);
+      expect(browser.getLocationAbsUrl()).toMatch(/\/about$/);
     });
 
     it('should have correct view', function() {
@@ -29,7 +29,7 @@ describe("E2E: Testing Routes", function() {
       browser.get('#/owners');
     });
     it('should have route', function() {
-      expect(browser.getLocationAbsUrl()).toMatch(/owners$/);
+      expect(browser.getLocationAbsUrl()).toMatch(/\/owners$/);
     });
 
     it('should have correct view', function() {
@@ -42,7 +42,7 @@ describe("E2E: Testing Routes", function() {
       browser.get('#/owners/1');
     });
     it('should have route', function() {
-      expect(browser.getLocationAbsUrl()).toMatch(/owners\/1$/);
+      expect(browser.getLocationAbsUrl()).toMatch(/\/owners\/1$/);
     });
 
     it('should have correct view', function() {
