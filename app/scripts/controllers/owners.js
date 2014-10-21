@@ -4,7 +4,7 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('OwnersCtrl', ['$scope', '$routeParams', 'owners',
+  .controller('OwnersCtrl', ['$scope', '$routeParams', 'ownersMock',
     function($scope, $routeParams, owners){
     $scope.owners = owners.query();
 
@@ -18,6 +18,5 @@ angular.module('frameworkApp')
     // currently only used for owner view
     if ($routeParams.owner){
       $scope.searchOwners($routeParams.owner);
-      //$scope.oneOwner = owners.get({id: $routeParams.owner});
     }
   }]);

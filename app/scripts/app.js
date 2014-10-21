@@ -4,10 +4,11 @@ angular.module('frameworkApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ngResource'
+  'ngResource',
+  'ngMessages'
 ])
   // set to true for automatic login
-  .constant('DEV_MODE', false)
+  .constant('DEV_MODE', true)
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

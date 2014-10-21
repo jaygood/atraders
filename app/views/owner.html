@@ -4,14 +4,18 @@
   <div>
     <div style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.id"
         ng-class="{myred: (oneOwner.id % 2), mygreen: (oneOwner.id && !(oneOwner.id % 2))}">
-      <h4 style="margin-bottom:0">{{oneOwner.rptOwnerName}}</h4>
-      <p style="margin-top:0">{{oneOwner.rptOwnerStreet1}} <br ng-if="oneOwner.rptOwnerStreet2 != ''">
-        {{oneOwner.rptOwnerStreet2}} <br>
-        {{oneOwner.rptOwnerCity}}, {{oneOwner.rptOwnerState}}
-        {{oneOwner.rptOwnerZipCode}}</p>
-      <p>ID: {{oneOwner.id}}<br>
-        CIK: {{oneOwner.rptOwnerCik}} <br>
-        last update: {{oneOwner.lastupdate}}</p>
+      <h4 style="margin-bottom:0">{{::oneOwner.rptOwnerName}}</h4>
+      <p style="margin-top:0">
+        {{::oneOwner.rptOwnerStreet1}}
+        <br ng-if="oneOwner.rptOwnerStreet2 != ''">{{::oneOwner.rptOwnerStreet2}}<br>
+        {{::oneOwner.rptOwnerCity}}, {{::oneOwner.rptOwnerState}}
+        {{::oneOwner.rptOwnerZipCode}}
+      </p>
+      <p>
+        ID: {{::oneOwner.id}}<br>
+        CIK: {{::oneOwner.rptOwnerCik}} <br>
+        last update: {{::oneOwner.lastupdate}}
+      </p>
     </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
 
 <div class="row marketing">
   <h3>OWNERS</h3>
-  <a class="owners" ng-repeat="owner in owners | limitTo: 5" ng-href="#/owners/{{owner.id}}">
-    <h4>{{owner.rptOwnerName}}</h4>
-    <p>{{owner.rptOwnerCity}}, {{owner.rptOwnerState}}</p>
+  <a class="owners" ng-repeat="owner in owners | limitTo: 5" ng-href="#/owners/{{::owner.id}}">
+    <h4>{{::owner.rptOwnerName}}</h4>
+    <p>{{::owner.rptOwnerCity}}, {{::owner.rptOwnerState}}</p>
     <br>
   </a>
+  <button class="btn btn-primary" ng-click="changeIt()">Submit</button>
   <hr>
   <h3>CHOOSE OWNER</h3>
   <div>
