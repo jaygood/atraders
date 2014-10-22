@@ -9,10 +9,12 @@ angular.module('frameworkApp')
     $scope.owners = owners.query();
 
     // initiation for input box
-    $scope.ownerNumb = 1;
+    $scope.oneOwner = {
+      number: 1
+    };
     // search database with the ownerNumb value
     $scope.searchOwners = function(arg){
-      $scope.oneOwner = owners.get({id: arg});
+      $scope.oneOwner.data = owners.get({id: arg});
     };
 
     // currently only used for owner view

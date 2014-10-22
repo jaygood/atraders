@@ -6,17 +6,18 @@
     <p>{{::owner.rptOwnerCity}}, {{::owner.rptOwnerState}}</p>
     <br>
   </a>
-  <button class="btn btn-primary" ng-click="changeIt()">Submit</button>
   <hr>
   <h3>CHOOSE OWNER</h3>
   <div>
-    <input type="text" ng-model="ownerNumb">
-    <button class="btn btn-default" ng-click="searchOwners(ownerNumb)">Search</button>
-    <div style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.id"
-        ng-class="{myred: (oneOwner.id % 2), mygreen: (oneOwner.id && !(oneOwner.id % 2))}">
-      <a class="owners" ng-href="#/owners/{{oneOwner.id}}">
-        <h4>{{oneOwner.rptOwnerName}}</h4>
-        <p>{{oneOwner.rptOwnerCity}}, {{oneOwner.rptOwnerState}}</p>
+    <input type="text" ng-model="oneOwner.number">
+    <button class="btn btn-default" ng-click="searchOwners(oneOwner.number)">Search</button>
+    <!-- id used for testing purposes-->
+    <div id="color-change" style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.data.id"
+        ng-class="{myred: (oneOwner.data.id % 2), mygreen: (oneOwner.data.id && !(oneOwner.data.id % 2))}">
+      <a class="owners" ng-href="#/owners/{{oneOwner.data.id}}">
+        <!-- id used for testing purposes-->
+        <h4 id="owner-name">{{oneOwner.data.rptOwnerName}}</h4>
+        <p>{{oneOwner.data.rptOwnerCity}}, {{oneOwner.data.rptOwnerState}}</p>
       </a>
     </div>
   </div>

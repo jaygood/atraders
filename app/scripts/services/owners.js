@@ -72,7 +72,7 @@ angular.module('frameworkApp')
   ];
     return {
       get: function(arg){
-        return owns[arg.id];
+        return owns[arg.id - 1];
       },
       query: function(){
         return owns;

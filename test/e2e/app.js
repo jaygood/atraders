@@ -1,6 +1,6 @@
 'use strict';
 describe("E2E: Testing Routes", function() {
-  beforeEach(function(){ /*browser.sleep(100); */  });
+// beforeEach(function(){ /*browser.sleep(100); */  });
 
   describe('root', function(){
     beforeEach(function(){

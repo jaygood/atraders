@@ -2,19 +2,19 @@
 <div class="row marketing">
   <h3>OWNER</h3>
   <div>
-    <div style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.id"
-        ng-class="{myred: (oneOwner.id % 2), mygreen: (oneOwner.id && !(oneOwner.id % 2))}">
-      <h4 style="margin-bottom:0">{{::oneOwner.rptOwnerName}}</h4>
+    <div style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.data.id"
+        ng-class="{myred: (oneOwner.data.id % 2), mygreen: (oneOwner.data.id && !(oneOwner.data.id % 2))}">
+      <h4 style="margin-bottom:0">{{::oneOwner.data.rptOwnerName}}</h4>
       <p style="margin-top:0">
-        {{::oneOwner.rptOwnerStreet1}}
-        <br ng-if="oneOwner.rptOwnerStreet2 != ''">{{::oneOwner.rptOwnerStreet2}}<br>
-        {{::oneOwner.rptOwnerCity}}, {{::oneOwner.rptOwnerState}}
-        {{::oneOwner.rptOwnerZipCode}}
+        {{::oneOwner.data.rptOwnerStreet1}}
+        <br ng-if="oneOwner.data.rptOwnerStreet2 != ''">{{::oneOwner.data.rptOwnerStreet2}}<br>
+        {{::oneOwner.data.rptOwnerCity}}, {{::oneOwner.data.rptOwnerState}}
+        {{::oneOwner.data.rptOwnerZipCode}}
       </p>
       <p>
-        ID: {{::oneOwner.id}}<br>
-        CIK: {{::oneOwner.rptOwnerCik}} <br>
-        last update: {{::oneOwner.lastupdate}}
+        ID: {{::oneOwner.data.id}}<br>
+        CIK: {{::oneOwner.data.rptOwnerCik}} <br>
+        last update: {{::oneOwner.data.lastupdate}}
       </p>
     </div>
   </div>
