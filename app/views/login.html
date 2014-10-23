@@ -1,3 +1,8 @@
+<script type="text/ng-template" id="userform-messages">
+  <div ng-message="minlength">Input is too short.</div>
+  <div ng-message="maxlength">Input is too long.</div>
+</script>
+
 <div class="col-sm-6" style="padding:2em 0">
   <form name="userForm" ng-submit="submit(user)" novalidate><fieldset>
     <legend>My Form</legend>
@@ -8,18 +13,8 @@
       <input type="text" name="username" class="form-control" placeholder="Enter a username" required
         ng-model="user.username" minlength="3" maxlength="8" jd-focus ng-blur="addBlur('username')">
 
-      <div ng-messages="userForm.username.$error" ng-messages-multiple>
-        <div ng-message="minlength">too short.</div>
-        <div ng-message="maxlength">too long.</div>
-      </div>
-      <div ng-messages="blurHash" ng-messages-multiple>
-        <div ng-message="username">too shorasdfsadfsdft.</div>
-        <div ng-message="username">tsadfsadfoo long.</div>
-      </div>
-      <p class="help-block" ng-show="userForm.username.$error.minlength && blurHash.username">
-        Username is too short.</p>
-      <p class="help-block" ng-show="userForm.username.$error.maxlength && blurHash.username">
-        Username is too long.</p>
+      <div class="help-block" ng-if="blurHash.username" ng-messages="userForm.username.$error"
+          ng-messages-include="userform-messages" ng-messages-multiple></div>
     </div>
 
     <!-- PASSWORD -->
@@ -28,18 +23,19 @@
       <input type="password" name="password" class="form-control" placeholder="Enter a password" required
         ng-model="user.password" ng-minlength="3" ng-maxlength="8"
         ng-blur="addBlur('password')">
-      <p class="help-block" ng-show="(userForm.password.$error.minlength || userForm.password.$error.maxlength) && blurHash.password">
-        Password invalid</p>
+      <div class="help-block" ng-if="blurHash.password" ng-messages="userForm.password.$error"
+          ng-messages-include="userform-messages"></div>
     </div>
 
     <!-- EMAIL -->
     <div class="form-group" ng-class="{'has-error': userForm.email.$invalid && !userForm.email.$pristine}"
-        ng-show="isSignupForm">
+        ng-if="isSignupForm">
       <label for="email">Email</label>
       <input type="email" name="email" class="form-control" placeholder="Enter an email" ng-required="isSignupForm"
         ng-model="user.email" ng-blur="addBlur('email')">
-      <p class="help-block" ng-show="userForm.email.$invalid && blurHash.email">
-        Enter a valid email.</p>
+      <div class="help-block" ng-if="blurHash.email" ng-messages="userForm.email">
+        <div ng-message="$invalid">Enter a valid email.</div>
+      </div>
     </div>
     <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
   </fieldset>

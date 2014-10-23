@@ -13,7 +13,7 @@
     <div class="form-group" ng-class="{'has-error': itemForm.phrase.$invalid && !itemForm.phrase.$pristine}">
       <label for="phrase">Phrase</label>
       <input type="text" name="phrase" class="form-control" placeholder="Enter a Phrase"
-        ng-model="item.phrase">
+        ng-model="item.phrase" ng-model-options="{debounce: 1000}">
     </div>
 
     <button type="submit" class="btn btn-primary" ng-disabled="itemForm.$invalid">Submit</button>
