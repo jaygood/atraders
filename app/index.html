@@ -14,21 +14,9 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-<body ng-app="frameworkApp">
+<body ng-app="frameworkApp" ng-strict-di>
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationCtrl">
-        <ul class="nav nav-pills pull-right">
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/'}">Home</jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/about'}">About</jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/owners'}">Owners</jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/login'}"
-            ng-if="!user">Login</jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/signup'}"
-            ng-if="!user">Sign Up</jd-nav-tab>
-          <jd-nav-tab jd-info="{activeClass:'active', ref:'/dashboard'}"
-            ng-if="user">Dashboard</jd-nav-tab>
-        </ul>
-
         <ul class="nav nav-pills pull-right" jd-active-class="active">
           <li><a ng-href="#/">Home</a></li>
           <li><a ng-href="#/about">About</a></li>
@@ -40,7 +28,7 @@
 
         <h3 class="text-muted">
           <span ng-bind="user ? 'User: ' + (user.username | lowercase): 'framework'"></span>
-            <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
+          <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
         </h3>
       </div>
     </script>

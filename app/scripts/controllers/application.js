@@ -14,8 +14,10 @@ angular.module('frameworkApp')
       function(){
         return userService.isLoggedIn();
       },
-      function (newVal){ // }, oldVal) {
-        $scope.user = newVal;
+      function (newVal, oldVal){
+        if(newVal !== oldVal){
+          $scope.user = newVal;
+        }
       }
     );
 
