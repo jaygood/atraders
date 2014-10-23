@@ -15,7 +15,7 @@ angular.module('frameworkApp')
         return userService.isLoggedIn();
       },
       function (newVal, oldVal){
-        if(newVal !== oldVal){
+        if(newVal !== oldVal || !$scope.user){
           $scope.user = newVal;
         }
       }
