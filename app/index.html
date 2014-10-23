@@ -22,19 +22,26 @@
           <jd-nav-tab jd-info="{activeClass:'active', ref:'/about'}">About</jd-nav-tab>
           <jd-nav-tab jd-info="{activeClass:'active', ref:'/owners'}">Owners</jd-nav-tab>
           <jd-nav-tab jd-info="{activeClass:'active', ref:'/login'}"
-            ng-hide="user">Login</jd-nav-tab>
+            ng-if="!user">Login</jd-nav-tab>
           <jd-nav-tab jd-info="{activeClass:'active', ref:'/signup'}"
-            ng-hide="user">Sign Up</jd-nav-tab>
+            ng-if="!user">Sign Up</jd-nav-tab>
           <jd-nav-tab jd-info="{activeClass:'active', ref:'/dashboard'}"
-            ng-show="user">Dashboard</jd-nav-tab>
+            ng-if="user">Dashboard</jd-nav-tab>
+        </ul>
+
+        <ul class="nav nav-pills pull-right" jd-active-class="active">
+          <li><a ng-href="#/">Home</a></li>
+          <li><a ng-href="#/about">About</a></li>
+          <li><a ng-href="#/owners">Owners</a></li>
+          <li ng-if="!user"><a ng-href="#/login">Login</a></li>
+          <li ng-if="!user"><a ng-href="#/signup">Sign Up</a></li>
+          <li ng-if="user"><a ng-href="#/dashboard">Dashboard</a></li>
         </ul>
 
         <h3 class="text-muted">
-          <span ng-hide="user">framework</span>
-          <span ng-show="user">User: <span ng-bind="user.username | lowercase"></span>
-          <a class="btn" ng-click="logout()">Logout</a></span>
+          <span ng-bind="user ? 'User: ' + (user.username | lowercase): 'framework'"></span>
+            <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
         </h3>
-
       </div>
     </script>
 
