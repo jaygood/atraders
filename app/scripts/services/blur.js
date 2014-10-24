@@ -8,17 +8,31 @@ angular.module('frameworkApp')
   .service('blurService', function () {
     // initialize and used for reset
     this.resetBlurHash = (function me(that){
-      // values used to determine error messages on login form
-      that.blurHash = {
-        username: false,
-        password: false,
-        email: false
-      };
+      // map holds values used to determine error messages on login form
+      that.blurHash = {};
       return function(){me(that);};
     })(this);
 
     // called from login controllers
+    // ng-blur="addBlur('username')"
     this.addBlur = function(input){
       this.blurHash[input] = true;
     };
   });
+
+  // test attempt at incorporating blurs into a directive
+  // example: jd-blur="username"
+  // .directive('jdBlur', function() {
+  //   return {
+  //     require : 'ngModel',
+  //     link: function(scope, element, attrs, ngModel){
+  //       element.bind('blur', function(event) {
+  //         scope.$apply(function() {
+  //           scope.blurHash[attrs.jdBlur] = true;
+  //           // doesn't work because the form becomes invalid
+  //           // ngModel.$setValidity('blurred', false);
+  //         });
+  //       });
+  //     }
+  //   }
+  // });
