@@ -2,6 +2,7 @@
   require 'vendor/autoload.php';
   require_once 'lib/mysql.php';
   require_once 'lib/func.php';
+  require_once 'lib/auth.php';
 
   $app = new \Slim\Slim(array(
     'debug' => false,
@@ -19,9 +20,8 @@
   });
 
   $app->get('/owners',     'getOwners');
-  //$app->get('/api/owners', function(){
-    //echo "ho ho ho";
-  //});
   $app->get('/owners/:id', 'getOwner');
+
+  $app->get('/auth',       'getAuth');
   $app->run();
 ?>

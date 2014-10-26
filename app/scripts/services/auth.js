@@ -1,60 +1,55 @@
 'use strict';
 angular.module('frameworkApp')
 
-  .factory('userAuth', ['$resource', function ($resource) {
-    return $resource('/site/api/owners/:id', {}, {
-      
+  .factory('myAuth', ['$resource', 'myToken', function($resource, myToken){
+    var resource = $resource('/site/api/auth/:id', {}, {
+      query: {
+        method: 'GET',
+        isArray: true,
+        headers: {'authToken': 'chloe'}
+      }
     });
+    return myToken.wrapActions(resource, ['query']);
   }])
 
-  .factory('authService', ['$http', '$q', 'localStorageService',
-    function ($http, $q, localStorageService) {
-      var serviceBase = 'http://ngauthenticationapi.azurewebsites.net/';
-      var _authentication: {
-        isAuth: false,
-        userName : ""
+  .factory('myToken', function(){
+    var token = '';
+    var tokenWrapper = function(resource, action){
+      resource['_' + action] = resource[action];
+
+      resource[action] = function(data, success, error){
+        return resource['_' + action](
+          angular.extend({}, data || {},
+          {access_token: tokenHandler.get()}),
+          success,
+          error
+        );
       };
-      var _logOut = function () {
-        localStorageService.remove('authorizationData');
-        _authentication.isAuth = false;
-        _authentication.userName = "";
-      };
-      return {
-        authentication: _authentication,
-        saveRegistration: function (registration) {
-          _logOut();
-
-          return $http.post(serviceBase + 'api/account/register', registration)
-            .then(function (response) {
-              return response;
-            });
-        },
-        login: function (loginData) {
-          var data = "grant_type=password&username=" + loginData.userName
-                   + "&password=" + loginData.password;
-          var deferred = $q.defer();
-
-          $http.post(serviceBase + 'token', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'} })
-            .success(function (response) {
-              localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
-              _authentication.isAuth = true;
-              _authentication.userName = loginData.userName;
-
-              deferred.resolve(response);
-
-            }).error(function (err, status) {
-              _logOut();
-              deferred.reject(err);
-            });
-          return deferred.promise;
-        },
-        logOut: _logOut,
-        fillAuthData: function () {
-          var authData = localStorageService.get('authorizationData');
-          if (authData){
-            _authentication.isAuth = true;
-            _authentication.userName = authData.userName;
-          }
+    };
+    var tokenHandler = {
+      set: function(newToken){
+        token = newToken;
+      },
+      get: function(){
+        return token;
+      },
+      wrapActions: function(resource, actions){
+        var wrappedResource = resource;
+        for(var i = 0; i < actions.length; i++){
+          tokenWrapper(wrappedResource, actions[i]);
         }
-      };
-  }]);
+        return wrappedResource;
+      }
+    };
+    return tokenHandler;
+  });
+
+//
+// function getAuth() {
+//   $arr = array('');
+//   echo "hello"
+//   foreach (getallheaders() as $name => $value) {
+//     array_push($arr, "$name: $value\n");
+//   }
+//   echo json_encode($arr)
+// }
