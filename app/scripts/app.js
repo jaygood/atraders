@@ -20,6 +20,10 @@ angular.module('frameworkApp', [
         templateUrl: 'views/owners.html',
         controller: 'OwnersCtrl'
       })
+      .when('/auth', {
+        templateUrl: 'views/auth.html',
+        controller: 'AuthCtrl'
+      })
       .when('/owners/:owner', {
         templateUrl: 'views/owner.html',
         controller: 'OwnersCtrl'
