@@ -9,6 +9,7 @@ angular.module('frameworkApp', [
 ])
   // set to true for automatic login
   .constant('DEV_MODE', true)
+  .constant('API_PATH', '/site/api')
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

@@ -1,55 +1,61 @@
 'use strict';
 angular.module('frameworkApp')
-
-  .factory('myAuth', ['$resource', 'myToken', function($resource, myToken){
-    var resource = $resource('/site/api/auth/:id', {}, {
-      query: {
-        method: 'GET',
-        isArray: true,
-        headers: {'authToken': 'chloe'}
-      }
-    });
-    return myToken.wrapActions(resource, ['query']);
+  .factory('myAuth', ['$resource', '$http', 'API_PATH', function($resource, $http, API_PATH){
+    return $resource(API_PATH + '/auth');
+  }])
+  .factory('myLogin', ['$resource', '$http', 'API_PATH', function($resource, $http, API_PATH){
+    $http.defaults.headers.common['username'] = 'guest';
+    return $resource(API_PATH + '/login');
   }])
 
-  .factory('myToken', function(){
-    var token = '';
-    var tokenWrapper = function(resource, action){
-      resource['_' + action] = resource[action];
+  .service('token', ['$http', 'myAuth', 'myLogin', 'DEV_MODE',
+    function($http, myAuth, myLogin, DEV_MODE){
+      var _user = DEV_MODE ? {username:'DEV', password:'DEV', email:'dev@dev.dev'} : null,
+          _isSignupRoute;
+      this.user = _user;
 
-      resource[action] = function(data, success, error){
-        return resource['_' + action](
-          angular.extend({}, data || {},
-          {access_token: tokenHandler.get()}),
-          success,
-          error
-        );
+      // versus login route
+      _isSignupRoute = function(){
+        return $location.path() === '/signup';
       };
-    };
-    var tokenHandler = {
-      set: function(newToken){
-        token = newToken;
-      },
-      get: function(){
-        return token;
-      },
-      wrapActions: function(resource, actions){
-        var wrappedResource = resource;
-        for(var i = 0; i < actions.length; i++){
-          tokenWrapper(wrappedResource, actions[i]);
-        }
-        return wrappedResource;
-      }
-    };
-    return tokenHandler;
-  });
 
-//
-// function getAuth() {
-//   $arr = array('');
-//   echo "hello"
-//   foreach (getallheaders() as $name => $value) {
-//     array_push($arr, "$name: $value\n");
-//   }
-//   echo json_encode($arr)
-// }
+      this.submit = function(user){
+        var headers = $http.defaults.headers.common;
+        if(_isSignupRoute()) headers['email'] = user.email;
+        headers['password'] = user.password; //'jon2pass'
+        headers['username'] = user.username; //'jon2'
+        myLogin.save(function(data){
+          headers['auth-token'] = data.data;
+          //$rootScope.$emit('loginEvent', data);
+        });
+        headers['password'] = null;
+      };
+      
+      this.isLoggedIn = function(){
+        return _user ? _user : false;
+      };
+
+      this.logout = function(){
+        _user = null;
+        var headers = $http.defaults.headers.common;
+        headers['auth-token'] = null;
+        headers['password']   = null;
+        headers['username']   = null;
+        headers['email']      = null;
+        console.log('Logged Out');
+        $rootScope.$emit('logoutEvent', 'nothing');
+      };
+
+      // keep track of form typing if user switches login -> signup
+      this.formUser = {};
+
+      this.getIt = function(success){
+        _user.user = "Loading";
+        myAuth.save(function(data){
+          console.log(data);
+          _user.user = data;
+          //this.user.user = data;
+          //success(data);
+        });
+      };
+  }])

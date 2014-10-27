@@ -4,21 +4,13 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('AuthCtrl', ['$scope', '$routeParams', 'myAuth',
-    function($scope, $routeParams, myAuth){
-    $scope.owners = myAuth.query();
+  .controller('AuthCtrl', ['$scope', '$routeParams', '$http', 'myAuth', 'token',
+    function($scope, $routeParams, $http, myAuth, token){
+    $scope.owners = myAuth.save();
 
-    // initiation for input box
-    $scope.oneOwner = {
-      number: 1
+    $scope.submit = function(user){
+      token.submit(user);
+      $scope.owners = token.user.user;
+      //$scope.oneOwner.data = owners.get({id: arg});
     };
-    // search database with the ownerNumb value
-    $scope.searchOwners = function(arg){
-      $scope.oneOwner.data = owners.get({id: arg});
-    };
-
-    // currently only used for owner view
-    if ($routeParams.owner){
-      $scope.searchOwners($routeParams.owner);
-    }
   }]);

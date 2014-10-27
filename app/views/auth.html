@@ -1,9 +1,30 @@
+<div class="col-sm-6" style="padding:2em 0">
+  <form name="userForm" ng-submit="submit(user)" novalidate><fieldset>
+    <legend>My Form</legend>
+
+    <!-- USERNAME -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" class="form-control" placeholder="Enter a username" required
+        ng-model="user.username" minlength="3" maxlength="8" jd-focus>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" placeholder="Enter a password" required
+        ng-model="user.password" ng-minlength="3" ng-maxlength="8">
+    </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+  </fieldset>
+  </form>
+</div>
 
 <div class="row marketing">
   <h3>OWNERS</h3>
-  <a class="owners" ng-repeat="owner in owners | limitTo: 5">
-    <h4>{{::owner}}</h4>
-    <br>
-  </a>
-  <hr>
+  <ul>
+    <li class="owners" ng-repeat="owner in owners">
+      {{::owner}}
+    </li>
+  </ul>
 </div>

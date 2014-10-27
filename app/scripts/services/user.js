@@ -3,7 +3,7 @@
 angular.module('frameworkApp')
   .service('userService', ['$resource', '$http', '$q', '$rootScope', '$location', 'DEV_MODE',
     function ($resource, $http, $q, $rootScope, $location, DEV_MODE) {
-      var pUser = DEV_MODE ? {username:'DEV', password:'DEV', email:'dev@dev.dev'} : null,
+      var _user = DEV_MODE ? {username:'DEV', password:'DEV', email:'dev@dev.dev'} : null,
           promise,
           signup,
           login;
@@ -12,7 +12,7 @@ angular.module('frameworkApp')
       this.formUser = {};
 
       this.isLoggedIn = function(){
-        return pUser ? pUser : false;
+        return _user ? _user : false;
       };
 
       // versus login route
@@ -21,7 +21,7 @@ angular.module('frameworkApp')
       };
 
       this.logout = function(){
-        pUser = null;
+        _user = null;
         promise = null;
         console.log('Logged Out');
         $rootScope.$emit('logoutEvent', 'nothing');
@@ -46,11 +46,12 @@ angular.module('frameworkApp')
         $http.post('data.json', user)
           .success(function(data){
             //this.formUser = {};
-            pUser = user;
+            _user = user;
             // create arbitrary key for user identity
-            pUser.key =(new Date()).valueOf().toString();
+            _user.key =(new Date()).valueOf().toString();
             $rootScope.$emit('loginEvent', data);
-            deferred.resolve(pUser);
+            deferred.resolve(_user);
+            $http.defaults.headers.common['Authtoken'] = 'token';
           })
           .error(function(message, code){
             console.log(message);
@@ -65,14 +66,15 @@ angular.module('frameworkApp')
             // check user and password combination
             if(user && data[user.username] && data[user.username].password === user.password){
               //this.formUser = {};
-              pUser = data[user.username];
+              _user = data[user.username];
               $rootScope.$emit('loginEvent', data);
-              deferred.resolve(pUser);
+              deferred.resolve(_user);
             }
             else{
               console.log('Wrong combination');
               deferred.reject(data);
             }
+            $http.defaults.headers.common['Authtoken'] = 'token';
           })
           .error(function(message, code){
             console.log(message);

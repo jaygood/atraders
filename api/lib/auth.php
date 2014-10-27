@@ -1,25 +1,82 @@
 <?php
-function getAuths() {
-    global $app;
-    $sql = "SELECT * FROM ownertable LIMIT 10";
-    //echo json_encode($sql);
-    try {
-        $dbCon = getConnection();
-        $stmt   = $dbCon->query($sql);
-        $owners  = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $dbCon = null;
-        echo json_encode($owners);
-    } catch(PDOException $e) {
-        //http_response_code(500);
-        $app->response()->status(500);
-        echo json_encode($e->getMessage());
-    }
-}
-function getAuth() {
-  $arr = array('');
-  //echo "hello";
-  foreach (getallheaders() as $name => $value) {
-    array_push($arr, "$name: $value\n");
+function accessCreds($name, $sql){
+  global $app;
+  try {
+    $dbCon = getCreds();
+    $stmt = $dbCon->prepare($sql);
+    $stmt->bindParam("name", $name);
+    $stmt->execute();
+    $user = $stmt->fetchObject();
+    $dbCon = null;
+    return $user;
+  } catch(PDOException $e) {
+    $app->response()->status(500);
+    header("Content-Type: application/json");
+    echo json_encode( $e->getMessage());
+    exit;
   }
-  echo json_encode($arr);
+}
+
+function retSomething(){
+  $answer = checkAuthKey();
+  header("Content-Type: application/json");
+  echo json_encode($answer);
+  exit;
+}
+
+function checkAuthKey(){
+  global $app;
+  try{
+    $headers = $app->request->headers;
+    $user    = $headers->get('username');
+    $key     = $headers->get('auth-token');
+
+    if($user == 'guest' || $user == ''){
+      return array("data" => "Guest User");
+    } else {
+      $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
+      if( $creds && $creds->key == $key){
+        return array("data" => "correct");
+      } else {
+        $app->response()->status(401);
+        return array("data" => "Incorrect Pass");
+      }
+    }
+  } catch(Exception $e){
+    $app->response()->status(500);
+    return array("error" => $e->getMessage());
+  }
+}
+
+function getAuthKey() {
+  global $app;
+  try{
+    $headers = $app->request->headers;
+    $user    = $headers->get('username');
+    $pass    = $headers->get('password');
+
+    if($user == 'guest' || $user == ''){
+      header("Content-Type: application/json");
+      echo json_encode(array("data" => "Guest User"));
+      exit;
+    } else {
+      $creds = accessCreds($user, "SELECT `password` FROM creds WHERE name=:name LIMIT 10");
+      if( $creds && $creds->password == $pass){
+        $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
+        header("Content-Type: application/json");
+        echo json_encode(array("data" => $creds->key));
+        exit;
+      }else{
+        $app->response()->status(401);
+        header("Content-Type: application/json");
+        echo json_encode(array("data" => "Incorrect Pass"));
+        exit;
+      }
+    }
+  } catch(Exception $e){
+    $app->response()->status(500);
+    header("Content-Type: application/json");
+    echo json_encode( $e->getMessage());
+    exit;
+  }
 }

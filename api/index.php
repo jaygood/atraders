@@ -5,23 +5,23 @@
   require_once 'lib/auth.php';
 
   $app = new \Slim\Slim(array(
-    'debug' => false,
+    'debug' => true,
     'templates.path' => '../templates',
-    'log.enabled' => false
+    'log.enabled' => true
   ));
 
-  $app->get('/hello/:name', function($name){
-    echo "hello, $name";
-  });
+  //$app->log->debug("THIS IS HOW YOU DEBUG");
+  // Test routes
+  $app->get('/hello/:name', function($name){ echo "hello, $name"; });
+  $app->get('/', function() use ($app){ echo "<h1>Go Ahead</h1>"; });
 
-  $app->get('/', function() use ($app){
-    $app->log->debug("THIS IS HOW YOU DEBUG");
-    echo "<h1>Go Ahead</h1>";
-  });
-
+  // Owner Information
   $app->get('/owners',     'getOwners');
   $app->get('/owners/:id', 'getOwner');
 
-  $app->get('/auth',       'getAuth');
+  // Authorization
+  $app->post('/login', 'getAuthKey');
+  $app->post('/auth', 'retSomething');
+
   $app->run();
 ?>
