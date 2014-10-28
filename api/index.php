@@ -17,12 +17,15 @@
   $app->get('/', function() use ($app){ echo "<h1>Go Ahead</h1>"; });
 
   // Owner Information
-  $app->get('/owners',     'getOwners');
-  $app->get('/owners/:id', 'getOwner');
+  $app->get('/owners',     'getOwners'); // query
+  $app->get('/owners/:id', 'getOwner');  // get
 
   // Item Information
-  $app->get('/items',     'getItems');
-  $app->get('/items/:id', 'getItem');
+  $app->get('/items',        'getItems');   // query
+  $app->post('/items',       'postItem');   // save
+  $app->get('/items/:id',    'getItem');    // get
+  $app->put('/items/:id',    'putItem');    // update
+  $app->delete('/items/:id', 'deleteItem'); // delete
 
   // Authorization
   $app->post('/login', 'getAuthKey');
