@@ -3,10 +3,10 @@
     <legend>My Form</legend>
 
     <!-- USERNAME -->
-    <div class="form-group" ng-class="{'has-error': itemForm.itemname.$invalid && !itemForm.itemname.$pristine}">
-      <label for="itemname">Itemname</label>
-      <input type="text" name="itemname" class="form-control" placeholder="Enter a itemname" required
-        ng-model="item.itemname" ng-minlength="3" ng-maxlength="15" jd-focus>
+    <div class="form-group" ng-class="{'has-error': itemForm.name.$invalid && !itemForm.name.$pristine}">
+      <label for="name">Itemname</label>
+      <input type="text" name="name" class="form-control" placeholder="Enter a name" required
+        ng-model="item.name" ng-minlength="3" ng-maxlength="15" jd-focus>
     </div>
 
     <!-- PHRASE -->
@@ -22,7 +22,7 @@
 </div>
 
 <ul style="clear:both">
-  <li ng-repeat="(key, item) in items">{{key}} :::: { {{item.itemname}}, {{item.phrase}} }
+  <li ng-repeat="(key, item) in items">{{key}} :::: { {{item.name}}, {{item.phrase}} }
     <a class="btn" ng-click="eraseItem(key)">Remove</a>
     <a class="btn" ng-click="editItem(key)">Edit</a>
   </li>

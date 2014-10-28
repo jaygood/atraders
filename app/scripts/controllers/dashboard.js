@@ -5,9 +5,10 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('DashCtrl', ['$scope', 'itemService',
-    function ($scope, itemService) {
-      $scope.items = itemService.items;
+  .controller('DashCtrl', ['$scope', 'itemService', 'Items',
+    function ($scope, itemService, Items) {
+      //$scope.items = itemService.items;
+      $scope.items = Items.query();
       $scope.item = {};
 
       $scope.eraseItem = function(key){

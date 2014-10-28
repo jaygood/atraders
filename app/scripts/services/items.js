@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('frameworkApp')
-  .factory('Items', function ($resource) {
-    return $resource('/data/:id', {id: '@id'}, {
-      update: {
-        medthod: 'PUT',
-        headers: { 'auth-token': 'C3PO R2D2' }
-      }
+  .factory('Items', ['$resource', 'API_PATH', function($resource, API_PATH){
+    return $resource(API_PATH + '/items/:id', {id: '@id'}, {
+      update: { medthod: 'PUT' }
     });
-  });
+  }]);
   //
   //
   // .controller('ResourceCtrl', function($scope, Items){
