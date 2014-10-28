@@ -1,15 +1,12 @@
 <?php
-class ResourceNotFoundException extends Exception {}
-
-function getOwners() {
+function getItems() {
     global $app;
-    $sql = "SELECT * FROM ownertable LIMIT 10";
-    //echo json_encode($sql);
+    $sql = "SELECT * FROM items LIMIT 10";
     header("Content-Type: application/json");
     try {
       $answer = checkAuthKey();
       if($answer['data'] == 'correct'){
-        $dbCon = getConnection();
+        $dbCon = getConnection2();
         $stmt   = $dbCon->query($sql);
         $owners  = $stmt->fetchAll(PDO::FETCH_OBJ);
         $dbCon = null;
@@ -27,14 +24,13 @@ function getOwners() {
         exit;
     }
 }
-function getOwner($id){
+function getItem($id){
     global $app;
-    //$sql = "SELECT `name`,`email`,`date`,`ip` FROM ownertable WHERE id=:id";
-    $sql = "SELECT * FROM ownertable WHERE id=:id";
+    $sql = "SELECT * FROM items WHERE id=:id";
+    header("Content-Type: application/json");
     try {
-        $dbCon = getConnection();
+        $dbCon = getConnection2();
         $stmt = $dbCon->prepare($sql);
-        //$stmt->bindParam(':calories', $calories, PDO::PARAM_INT);
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $owner = $stmt->fetchObject();
@@ -45,7 +41,6 @@ function getOwner($id){
           throw new ResourceNotFoundException();
         }
     } catch (ResourceNotFoundException $e) {
-        $app->log->debug("THIS IS ERRROR");
         $app->response()->status(404);
     } catch(PDOException $e) {
         $app->response()->status(500);

@@ -5,14 +5,14 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('ApplicationCtrl', ['$scope', 'userService', function ($scope, userService) {
+  .controller('ApplicationCtrl', ['$scope', 'token', function ($scope, token) {
     // watch login and logout
     // * simple assignment cannot be used
     // * because of the user object is not
     // * altered but redefined on login
     $scope.$watch(
       function(){
-        return userService.isLoggedIn();
+        return token.getUser();
       },
       function (newVal, oldVal){
         if(newVal !== oldVal || !$scope.user){
@@ -23,6 +23,6 @@ angular.module('frameworkApp')
 
     // bye-bye
     $scope.logout = function(){
-      userService.logout();
+      token.logout();
     };
   }]);

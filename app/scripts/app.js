@@ -21,13 +21,10 @@ angular.module('frameworkApp', [
         templateUrl: 'views/owners.html',
         controller: 'OwnersCtrl'
       })
-      .when('/auth', {
-        templateUrl: 'views/auth.html',
-        controller: 'AuthCtrl'
-      })
       .when('/owners/:owner', {
         templateUrl: 'views/owner.html',
-        controller: 'OwnersCtrl'
+        controller: 'OwnersCtrl',
+        isRestricted: true
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -51,14 +48,14 @@ angular.module('frameworkApp', [
       });
   }])
 
-  .run(['$rootScope', '$location', 'userService', 'DEV_MODE',
-  function ($rootScope,  $location, userService, DEV_MODE) {
+  .run(['$rootScope', '$location', 'token', 'DEV_MODE',
+  function ($rootScope,  $location, token, DEV_MODE) {
 
     // restricts access to certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
       if(!DEV_MODE){
       if (next.$$route.isRestricted){
-        if (!userService.isLoggedIn()) {
+        if (!token.getUser()) {
           console.log('DENY');
           event.preventDefault();
           $location.path('/login');

@@ -4,9 +4,15 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('OwnersCtrl', ['$scope', '$routeParams', 'ownersMock',
+  .controller('OwnersCtrl', ['$scope', '$routeParams', 'owners',
     function($scope, $routeParams, owners){
-    $scope.owners = owners.query();
+    owners.query(function(data){
+      if(data[0] == "No Access"){
+        $scope.errors = "Please log in";
+      } else{
+        $scope.owners = data;
+      }
+    });
 
     // initiation for input box
     $scope.oneOwner = {

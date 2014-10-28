@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
- <body ng-app="frameworkApp" ng-strict-di>
+ <body ng-app="frameworkApp" <!--ng-strict-di--> >
 
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationCtrl">
@@ -28,7 +28,7 @@
         </ul>
 
         <h3 class="text-muted">
-          <span ng-bind="user ? 'User: ' + (user.username | lowercase): 'framework'"></span>
+          <span ng-bind="user ? 'User: ' + (user.name | lowercase): 'framework'"></span>
           <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
         </h3>
       </div>
@@ -97,7 +97,6 @@
     <script src="scripts/controllers/owners.js"></script>
     <script src="scripts/controllers/auth.js"></script>
     <script src="scripts/services/one.js"></script>
-    <script src="scripts/services/user.js"></script>
     <script src="scripts/services/item.js"></script>
     <script src="scripts/services/blur.js"></script>
     <script src="scripts/services/items.js"></script>

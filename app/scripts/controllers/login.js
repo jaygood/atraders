@@ -22,7 +22,7 @@ angular.module('frameworkApp')
         }
       };
 
-      $scope._user = token.user;
+      $scope._user = token.getUser();
       $scope.clickIt = function(){
         token.getIt(function(data){
           //$scope._user = data;

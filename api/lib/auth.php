@@ -12,7 +12,7 @@ function accessCreds($name, $sql){
   } catch(PDOException $e) {
     $app->response()->status(500);
     header("Content-Type: application/json");
-    echo json_encode( $e->getMessage());
+    echo json_encode(array("error" => $e->getMessage()));
     exit;
   }
 }
@@ -28,7 +28,7 @@ function checkAuthKey(){
   global $app;
   try{
     $headers = $app->request->headers;
-    $user    = $headers->get('username');
+    $user    = $headers->get('name');
     $key     = $headers->get('auth-token');
 
     if($user == 'guest' || $user == ''){
@@ -52,8 +52,8 @@ function getAuthKey() {
   global $app;
   try{
     $headers = $app->request->headers;
-    $user    = $headers->get('username');
-    $pass    = $headers->get('password');
+    $user    = $headers->get('name');
+    $pass    = $headers->get('pass');
 
     if($user == 'guest' || $user == ''){
       header("Content-Type: application/json");
@@ -76,7 +76,7 @@ function getAuthKey() {
   } catch(Exception $e){
     $app->response()->status(500);
     header("Content-Type: application/json");
-    echo json_encode( $e->getMessage());
+    echo json_encode(array("error" => $e->getMessage()));
     exit;
   }
 }

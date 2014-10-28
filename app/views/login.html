@@ -9,21 +9,21 @@
     <legend>My Form</legend>
 
     <!-- USERNAME -->
-    <div class="form-group" ng-class="{'has-error': userForm.username.$invalid && !userForm.username.$pristine}">
-      <label for="username">Username</label>
-      <input type="text" name="username" class="form-control" placeholder="Enter a username" required
-        ng-model="user.username" minlength="3" maxlength="8" ng-blur="addBlur('username')" jd-focus>
-      <div class="help-block" ng-if="blurHash.username" ng-messages="userForm.username.$error"
+    <div class="form-group" ng-class="{'has-error': userForm.name.$invalid && !userForm.name.$pristine}">
+      <label for="name">Username</label>
+      <input type="text" name="name" class="form-control" placeholder="Enter a name" required
+        ng-model="user.name" minlength="3" maxlength="8" ng-blur="addBlur('name')" jd-focus>
+      <div class="help-block" ng-if="blurHash.name" ng-messages="userForm.name.$error"
           ng-messages-include="userform-messages" ng-messages-multiple></div>
     </div>
 
     <!-- PASSWORD -->
-    <div class="form-group" ng-class="{'has-error': userForm.password.$invalid && !userForm.password.$pristine}">
-      <label for="password">Password</label>
-      <input type="password" name="password" class="form-control" placeholder="Enter a password" required
-        ng-model="user.password" ng-minlength="3" ng-maxlength="8"
-        ng-blur="addBlur('password')">
-      <div class="help-block" ng-if="blurHash.password" ng-messages="userForm.password.$error"
+    <div class="form-group" ng-class="{'has-error': userForm.pass.$invalid && !userForm.pass.$pristine}">
+      <label for="pass">Password</label>
+      <input type="password" name="pass" class="form-control" placeholder="Enter a password" required
+        ng-model="user.pass" ng-minlength="3" ng-maxlength="8"
+        ng-blur="addBlur('pass')">
+      <div class="help-block" ng-if="blurHash.pass" ng-messages="userForm.pass.$error"
           ng-messages-include="userform-messages"></div>
     </div>
 

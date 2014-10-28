@@ -3,6 +3,7 @@
   require_once 'lib/mysql.php';
   require_once 'lib/func.php';
   require_once 'lib/auth.php';
+  require_once 'lib/items.php';
 
   $app = new \Slim\Slim(array(
     'debug' => true,
@@ -19,9 +20,13 @@
   $app->get('/owners',     'getOwners');
   $app->get('/owners/:id', 'getOwner');
 
+  // Item Information
+  $app->get('/items',     'getItems');
+  $app->get('/items/:id', 'getItem');
+
   // Authorization
   $app->post('/login', 'getAuthKey');
-  $app->post('/auth', 'retSomething');
+  $app->post('/auth',  'retSomething');
 
   $app->run();
 ?>
