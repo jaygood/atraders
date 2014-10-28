@@ -4,9 +4,9 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('OwnersCtrl', ['$scope', '$routeParams', 'owners',
-    function($scope, $routeParams, owners){
-    owners.query(function(data){
+  .controller('OwnersCtrl', ['$scope', '$routeParams', 'Owners',
+    function($scope, $routeParams, Owners){
+    Owners.query(function(data){
       if(data[0] == "No Access"){
         $scope.errors = "Please log in";
       } else{
@@ -20,7 +20,7 @@ angular.module('frameworkApp')
     };
     // search database with the ownerNumb value
     $scope.searchOwners = function(arg){
-      $scope.oneOwner.data = owners.get({id: arg});
+      $scope.oneOwner.data = Owners.get({id: arg});
     };
 
     // currently only used for owner view

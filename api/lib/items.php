@@ -114,6 +114,8 @@ function getItem($id){
     $sql = "SELECT * FROM items WHERE id=:id";
     header("Content-Type: application/json");
     try {
+      $answer = checkAuthKey();
+      if($answer['data'] == 'correct'){
         $dbCon = getConnection2();
         $stmt = $dbCon->prepare($sql);
         $stmt->bindParam("id", $id);
@@ -125,6 +127,11 @@ function getItem($id){
         } else {
           throw new ResourceNotFoundException();
         }
+      } else{
+        $app->response()->status(401);
+        echo json_encode(array("No Access"));
+        exit;
+      }
     } catch (ResourceNotFoundException $e) {
         $app->response()->status(404);
     } catch(PDOException $e) {

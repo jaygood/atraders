@@ -22,8 +22,10 @@
 </div>
 
 <ul style="clear:both">
-  <li ng-repeat="(key, item) in items">{{item.id}} :::: { {{item.name}}, {{item.phrase}} }
-    <a class="btn" ng-click="deleteItem(item.id)">Remove</a>
-    <a class="btn" ng-click="editItem(item.id)">Edit</a>
+  <li ng-repeat="item in items">
+    <h5>{{item.name}}</h5>
+    {{item.phrase}}
+    <a class="btn" ng-click="deleteItem(item)">Remove</a>
+    <a class="btn" ng-click="editItem(item)">Edit</a>
   </li>
 </ul>

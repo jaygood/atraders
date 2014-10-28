@@ -22,13 +22,6 @@ angular.module('frameworkApp')
         }
       };
 
-      $scope._user = token.getUser();
-      $scope.clickIt = function(){
-        token.getIt(function(data){
-          //$scope._user = data;
-        });
-      };
-
       // called when user blurs an input
       $scope.addBlur = function(input){
         blurService.addBlur(input);

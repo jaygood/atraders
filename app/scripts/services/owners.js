@@ -4,11 +4,11 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .factory('owners', ['$resource', function ($resource) {
-    return $resource('/site/api/owners/:id');
+  .factory('Owners', ['$resource', 'API_PATH', function($resource, API_PATH){
+    return $resource(API_PATH + '/owners/:id');
   }])
 
-  .factory('ownersMock', function(){
+  .factory('OwnersMock', function(){
     var owns = [{
       id: 1,
       rptOwnerCik: '0001610900',

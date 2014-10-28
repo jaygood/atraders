@@ -18,12 +18,14 @@ function getOwners() {
       } else{
         $app->response()->status(401);
         echo json_encode(array("No Access"));
+        //echo json_encode('"error":{"text":' . $e->getMessage() . '}}');
         exit;
       }
     } catch(PDOException $e) {
         //http_response_code(500);
         $app->response()->status(500);
         echo json_encode(array("error" => $e->getMessage()));
+        //echo json_encode('"error":{"text":' . $e->getMessage() . '}}');
         exit;
     }
 }
@@ -32,6 +34,8 @@ function getOwner($id){
     //$sql = "SELECT `name`,`email`,`date`,`ip` FROM ownertable WHERE id=:id";
     $sql = "SELECT * FROM ownertable WHERE id=:id";
     try {
+      $answer = checkAuthKey();
+      if($answer['data'] == 'correct'){
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql);
         //$stmt->bindParam(':calories', $calories, PDO::PARAM_INT);
@@ -44,6 +48,10 @@ function getOwner($id){
         } else {
           throw new ResourceNotFoundException();
         }
+      } else{
+        $app->response()->status(401);
+        echo json_encode(array("No Access"));
+      }
     } catch (ResourceNotFoundException $e) {
         $app->log->debug("THIS IS ERRROR");
         $app->response()->status(404);

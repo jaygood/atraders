@@ -1,5 +1,5 @@
 /*
- *  Accesses the API
+ *  TODO: create awesome filter to remove task from index.html 
  */
 
 'use strict';

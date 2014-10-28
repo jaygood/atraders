@@ -10,10 +10,7 @@ angular.module('frameworkApp')
     // * simple assignment cannot be used
     // * because of the user object is not
     // * altered but redefined on login
-    $scope.$watch(
-      function(){
-        return token.getUser();
-      },
+    $scope.$watch(token.getUser,
       function (newVal, oldVal){
         if(newVal !== oldVal || !$scope.user){
           $scope.user = newVal;

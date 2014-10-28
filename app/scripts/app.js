@@ -8,7 +8,7 @@ angular.module('frameworkApp', [
   'ngMessages'
 ])
   // set to true for automatic login
-  .constant('DEV_MODE', true)
+  .constant('DEV_MODE', false)
   .constant('API_PATH', '/site/api')
 
   .config(['$routeProvider', function ($routeProvider) {
@@ -17,19 +17,6 @@ angular.module('frameworkApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/owners', {
-        templateUrl: 'views/owners.html',
-        controller: 'OwnersCtrl'
-      })
-      .when('/owners/:owner', {
-        templateUrl: 'views/owner.html',
-        controller: 'OwnersCtrl',
-        isRestricted: true
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
@@ -37,6 +24,16 @@ angular.module('frameworkApp', [
       .when('/signup', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
+      })
+      .when('/owners', {
+        templateUrl: 'views/owners.html',
+        controller: 'OwnersCtrl',
+        isRestricted: true
+      })
+      .when('/owners/:owner', {
+        templateUrl: 'views/owner.html',
+        controller: 'OwnersCtrl',
+        isRestricted: true
       })
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',

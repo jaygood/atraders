@@ -5,3 +5,4 @@ dist
 bower_components
 api/lib/mysql.php
 api/composer.phar
+TODO.txt

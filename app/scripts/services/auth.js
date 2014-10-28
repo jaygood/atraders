@@ -1,11 +1,12 @@
+/*
+ *  Login Service
+ *  Keeps track of user and authorized state
+ */
+
 'use strict';
 angular.module('frameworkApp')
-  .factory('myAuth', ['$resource', 'API_PATH', function($resource, API_PATH){
-    return $resource(API_PATH + '/auth');
-  }])
-
-  .service('token', ['$resource', '$http', '$location', '$rootScope', 'myAuth', 'API_PATH', 'DEV_MODE',
-    function($resource, $http, $location, $rootScope, myAuth, API_PATH, DEV_MODE){
+  .service('token', ['$resource', '$http', '$location', '$rootScope', 'API_PATH', 'DEV_MODE',
+    function($resource, $http, $location, $rootScope, API_PATH, DEV_MODE){
       var _resource = $resource(API_PATH + '/login'),
           _headers  = $http.defaults.headers.common,
           _user     = DEV_MODE ? {name:'dev', pass: 'dev', key: 'devdev'} : null;
@@ -25,10 +26,14 @@ angular.module('frameworkApp')
         _headers['name'] = user.name;
         var that = this;
         _resource.save(function(data){
-          _headers['auth-token'] = data.data;
-          _user.name = user.name;
-          that.formUser = {};
-          $rootScope.$emit('loginEvent', data);
+          if(data.data != 'Incorrect Pass'){
+            _headers['auth-token'] = data.data;
+            _user = { name: user.name};
+            that.formUser = {};
+            $rootScope.$emit('loginEvent', data);
+          }else{
+            console.log('login attempt failed!');
+          }
         });
         _headers['pass'] = null;
       };
@@ -42,10 +47,9 @@ angular.module('frameworkApp')
       this.logout = function(){
         _user = null;
         _headers['auth-token'] = null;
-        _headers['pass']   = null;
-        _headers['name']   = 'guest';
+        _headers['pass']       = null;
+        _headers['name']       = 'guest';
         _headers['email']      = null;
-        console.log('Logged Out');
         $rootScope.$emit('logoutEvent', 'nothing');
       };
-  }])
+  }]);

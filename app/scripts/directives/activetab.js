@@ -1,3 +1,8 @@
+/*
+ *  ActiveClass changes tab color for active route's tab
+ *  Focus gives focus to for element on start and api call
+ */
+
 'use strict';
 angular.module('frameworkApp')
 

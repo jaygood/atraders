@@ -1,6 +1,6 @@
 /*
- *  Service that shares a hash describing the current
- *  blur state of the input boxes
+ *  TODO figure out validation
+ *  
  */
 
 'use strict';
