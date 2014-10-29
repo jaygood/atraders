@@ -21,7 +21,7 @@ angular.module('frameworkApp')
     $scope.error = {
       // if true, show message
       status: false,
-      message: "There is an error"
+      message: 'There is an error'
     };
 
     // bye-bye

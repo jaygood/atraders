@@ -7,7 +7,7 @@
 angular.module('frameworkApp')
   .controller('DashCtrl', ['$scope', 'Items',
     function ($scope, Items) {
-      $scope.item = new Items;
+      $scope.item = new Items();
       // query
       var _requery = (function me(){
         Items.query(function(data){
@@ -31,15 +31,15 @@ angular.module('frameworkApp')
           // } else{
           //   item.$save(_requery);
           // }
-          $scope.item = new Items;
+          $scope.item = new Items();
           $scope.itemForm.$setPristine();
           // refocuses on first input to add new item
-          if ('jdFocus' in $scope) $scope.jdFocus.focus();
+          if ('jdFocus' in $scope){ $scope.jdFocus.focus(); }
         }
       };
 
       $scope.editItem = function(item){
         $scope.item = item;
-        if ('jdFocus' in $scope) $scope.jdFocus.focus();
+        if ('jdFocus' in $scope){ $scope.jdFocus.focus(); }
       };
   }]);

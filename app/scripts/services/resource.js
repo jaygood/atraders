@@ -31,14 +31,14 @@ angular.module('jdResource', [])
     return $resource(API_PATH + '/items/:id', {id: '@id'});
   }])
 
-  // Login used for authentication
-  .factory('Login', ['$resource', 'API_PATH', function($resource, API_PATH){
-    return $resource(API_PATH + '/login');
-  }])
-
   // Owners used on owners sheet
   .factory('Owners', ['$resource', 'API_PATH', function($resource, API_PATH){
     return $resource(API_PATH + '/owners/:id', {},{
       query: {isArray: false}
     });
+  }])
+
+  // Login used for authentication
+  .factory('Login', ['$resource', 'API_PATH', function($resource, API_PATH){
+    return $resource(API_PATH + '/login');
   }]);

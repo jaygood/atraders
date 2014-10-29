@@ -12,7 +12,7 @@ angular.module('frameworkApp')
 
       // keep track of form typing if user switches login -> signup
       this.formUser = {};
-      _headers['name'] = 'guest';
+      _headers.name = 'guest';
 
       // versus login route
       this.isSignupRoute = function(){
@@ -20,14 +20,14 @@ angular.module('frameworkApp')
       };
 
       this.submit = function(user){
-        if(this.isSignupRoute()) _headers['email'] = user.email;
-        _headers['pass'] = user.pass;
-        _headers['name'] = user.name;
+        if(this.isSignupRoute()){ _headers.email = user.email; }
+        _headers.pass = user.pass;
+        _headers.name = user.name;
         var that = this;
         Login.save(
           // success
           function(data){
-            if(data.status == 'success'){
+            if(data.status === 'success'){
               _headers['auth-token'] = data.data;
               _user = { name: user.name};
               that.formUser = {};
@@ -40,10 +40,10 @@ angular.module('frameworkApp')
           function(e){
             console.log(e);
           });
-        _headers['pass'] = null;
+        _headers.pass = null;
       };
 
-      if(DEV_MODE) this.submit(_user)
+      if(DEV_MODE){ this.submit(_user); }
 
       this.getUser = function(){
         return _user;
@@ -52,9 +52,9 @@ angular.module('frameworkApp')
       this.logout = function(){
         _user = null;
         _headers['auth-token'] = null;
-        _headers['pass']       = null;
-        _headers['name']       = 'guest';
-        _headers['email']      = null;
+        _headers.pass          = null;
+        _headers.name          = 'guest';
+        _headers.email         = null;
         $rootScope.$emit('logoutEvent', 'nothing');
       };
   }]);

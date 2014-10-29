@@ -6,12 +6,12 @@ angular.module('frameworkApp', [
   'ngRoute',
   'ngResource',
   'ngMessages',
-  'jdResource'
-  //'jdResource.mock'
+  //'jdResource'
+  'jdResource.mock'
 ])
   // set to true for automatic login
   // code is in auth service
-  .constant('DEV_MODE', false)
+  .constant('DEV_MODE', true)
   .constant('API_PATH', '/site/api')
 
   .config(['$routeProvider', function ($routeProvider) {
