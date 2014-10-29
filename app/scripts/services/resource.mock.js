@@ -1,6 +1,7 @@
 /*
- *  API for items used on diagnostics sheet
- *
+ *  API for mock items
+ *  Can be used in testing or off site work
+ *  Mocks resources with fake data
  */
 
 'use strict';
@@ -14,44 +15,40 @@ angular.module('jdResource.mock', [])
   })
 
   .factory('Items', function () {
-    var funct = function(){
-      this.$update= function(cb){
-        _items[_search(this.id, _items)] = this;
-      };
-      this.$save= function(cb){
-        _items.push(this);
-      };
-      this.$delete= function(cb){
-        _items.splice(_search(this.id, _items), 1);
-      };
-    };
-    funct.query = function(cb){
-      cb(_items)
-      return _items;
-    };
-
+    // find resource with id in myArray
     var _search = function (id, myArray){
       for (var i=0, len=myArray.length; i < len; i++) {
-        if (myArray[i].id === id) {
-          return i;
-        }
+        if (myArray[i].id === id){ return i; }
       }
       return null;
     };
 
-    function Item(id, name, phrase){
-      var item = new funct();
-      item.id = id;
-      item.name = name;
-      item.phrase = phrase;
-      return item;
-    }
-    var item1 = Item(0, 'jon', 'hello'),
-        item2 = Item(1, 'jon', 'hello for secnod time'),
-        item3 = Item(2, 'jon', 'hello for third time'),
+    var Resource = function(id, name, phrase){
+      this.id = id;
+      this.name = name;
+      this.phrase = phrase;
+    };
+    Resource.prototype = {
+      $save: function(){
+        // if exists, update rather than create
+        this.id ? _items[_search(this.id, _items)] = this :
+                  _items.push(this);
+      },
+      $delete: function(){
+        _items.splice(_search(this.id, _items), 1);
+      }
+    };
+    Resource.query = function(cb){
+      cb(_items);
+      return _items;
+    };
+
+    var item1 = new Resource(0, 'jon', 'hello'),
+        item2 = new Resource(1, 'jon', 'hello for secnod time'),
+        item3 = new Resource(2, 'jon', 'hello for third time'),
         _items = [item1, item2, item3];
 
-    return funct;
+    return Resource;
   })
 
   .factory('Owners', function(){
