@@ -5,7 +5,9 @@
 'use strict';
 angular.module('frameworkApp')
   .factory('Owners', ['$resource', 'API_PATH', function($resource, API_PATH){
-    return $resource(API_PATH + '/owners/:id');
+    return $resource(API_PATH + '/owners/:id', {},{
+      query: {isArray: false}
+    });
   }])
 
   .factory('OwnersMock', function(){

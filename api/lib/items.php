@@ -9,7 +9,7 @@ function postItem() {
     $name   = $data->name;
     $phrase = $data->phrase;
     $answer = checkAuthKey();
-    if($answer['data'] == 'correct'){
+    if($answer['status'] == 'success'){
       $sql = "INSERT INTO items (name, phrase) VALUES(:name, :phrase)";
       $dbCon = getConnection2();
       $stmt = $dbCon->prepare($sql);
@@ -19,12 +19,14 @@ function postItem() {
       $dbCon = null;
     } else{
       $app->response()->status(401);
-      echo json_encode(array("No Access"));
+      //echo json_encode(array("No Access"));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
     }
   } catch(PDOException $e) {
       //http_response_code(500);
       $app->response()->status(500);
-      echo json_encode(array("error" => $e->getMessage()));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
+      //echo json_encode(array("error" => $e->getMessage()));
   }
 }
 function putItem($id) {
@@ -33,12 +35,10 @@ function putItem($id) {
   header("Content-Type: application/json");
   try {
     $data   = json_decode($app->request->getBody());
-    $app->log->debug("THIS IS HOW YOU DEBUG");
-    $app->log->debug(json_encode($data));
     $name   = $data->name;
     $phrase = $data->phrase;
     $answer = checkAuthKey();
-    if($answer['data'] == 'correct'){
+    if($answer['status'] == 'success'){
       $sql = "UPDATE items set name=:name, phrase=:phrase WHERE id=:id";
       $dbCon = getConnection2();
       $stmt = $dbCon->prepare($sql);
@@ -46,16 +46,14 @@ function putItem($id) {
       $stmt->bindParam("name", $name);
       $stmt->bindParam("phrase", $phrase);
       $stmt->execute();
-      $app->log->debug("EEENNDNDNDN");
       $dbCon = null;
     } else{
       $app->response()->status(401);
-      echo json_encode(array("No Access"));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
     }
   } catch(PDOException $e) {
-      //http_response_code(500);
       $app->response()->status(500);
-      echo json_encode(array("error" => $e->getMessage()));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
   }
 }
 function deleteItem($id) {
@@ -64,7 +62,7 @@ function deleteItem($id) {
   header("Content-Type: application/json");
   try {
     $answer = checkAuthKey();
-    if($answer['data'] == 'correct'){
+    if($answer['status'] == 'success'){
       $sql = "DELETE from items WHERE id=:id";
       $dbCon = getConnection2();
       $stmt = $dbCon->prepare($sql);
@@ -73,12 +71,11 @@ function deleteItem($id) {
       $dbCon = null;
     } else{
       $app->response()->status(401);
-      echo json_encode(array("No Access"));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
     }
   } catch(PDOException $e) {
-      //http_response_code(500);
       $app->response()->status(500);
-      echo json_encode(array("error" => $e->getMessage()));
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
   }
 }
 
@@ -89,23 +86,20 @@ function getItems() {
     header("Content-Type: application/json");
     try {
       $answer = checkAuthKey();
-      if($answer['data'] == 'correct'){
+      if($answer['status'] == 'success'){
         $dbCon = getConnection2();
         $stmt   = $dbCon->query($sql);
-        $owners  = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $items  = $stmt->fetchAll(PDO::FETCH_OBJ);
         $dbCon = null;
-        echo json_encode($owners);
-        exit;
+        echo json_encode(array("status" => "success" ,"data" => $items));
       } else{
         $app->response()->status(401);
-        echo json_encode(array("No Access"));
-        exit;
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
       }
     } catch(PDOException $e) {
         //http_response_code(500);
         $app->response()->status(500);
-        echo json_encode(array("error" => $e->getMessage()));
-        exit;
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }
 }
 function getItem($id){
@@ -115,27 +109,27 @@ function getItem($id){
     header("Content-Type: application/json");
     try {
       $answer = checkAuthKey();
-      if($answer['data'] == 'correct'){
+      if($answer['status'] == 'success'){
         $dbCon = getConnection2();
         $stmt = $dbCon->prepare($sql);
         $stmt->bindParam("id", $id);
         $stmt->execute();
-        $owner = $stmt->fetchObject();
+        $item = $stmt->fetchObject();
         $dbCon = null;
         if ($owner) {
-          echo json_encode($owner);
+          echo json_encode(array("status" => "success" ,"data" => $item));
         } else {
           throw new ResourceNotFoundException();
         }
       } else{
         $app->response()->status(401);
-        echo json_encode(array("No Access"));
-        exit;
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
       }
     } catch (ResourceNotFoundException $e) {
         $app->response()->status(404);
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Resource not found'));
     } catch(PDOException $e) {
         $app->response()->status(500);
-        echo json_encode( $e->getMessage());
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }
 }

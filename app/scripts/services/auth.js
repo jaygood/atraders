@@ -25,16 +25,22 @@ angular.module('frameworkApp')
         _headers['pass'] = user.pass;
         _headers['name'] = user.name;
         var that = this;
-        _resource.save(function(data){
-          if(data.data != 'Incorrect Pass'){
-            _headers['auth-token'] = data.data;
-            _user = { name: user.name};
-            that.formUser = {};
-            $rootScope.$emit('loginEvent', data);
-          }else{
-            console.log('login attempt failed!');
-          }
-        });
+        _resource.save(
+          // success
+          function(data){
+            if(data.status == 'success'){
+              _headers['auth-token'] = data.data;
+              _user = { name: user.name};
+              that.formUser = {};
+              $rootScope.$emit('loginEvent', data);
+            }else{
+              console.log('login attempt failed!');
+            }
+          },
+          // error
+          function(e){
+            console.log(e);
+          });
         _headers['pass'] = null;
       };
 

@@ -1,6 +1,4 @@
 <?php
-class ResourceNotFoundException extends Exception {}
-
 function getOwners() {
     global $app;
     $sql = "SELECT * FROM ownertable LIMIT 10";
@@ -8,25 +6,22 @@ function getOwners() {
     header("Content-Type: application/json");
     try {
       $answer = checkAuthKey();
-      if($answer['data'] == 'correct'){
+      if($answer['status'] == 'success'){
         $dbCon = getConnection();
         $stmt   = $dbCon->query($sql);
         $owners  = $stmt->fetchAll(PDO::FETCH_OBJ);
         $dbCon = null;
-        echo json_encode($owners);
-        exit;
+        //echo json_encode($owners);
+        echo json_encode(array("status" => "success" ,"data" => $owners));
       } else{
         $app->response()->status(401);
-        echo json_encode(array("No Access"));
-        //echo json_encode('"error":{"text":' . $e->getMessage() . '}}');
-        exit;
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
+        //echo json_encode(array("No Access"));
       }
     } catch(PDOException $e) {
-        //http_response_code(500);
         $app->response()->status(500);
-        echo json_encode(array("error" => $e->getMessage()));
-        //echo json_encode('"error":{"text":' . $e->getMessage() . '}}');
-        exit;
+        //echo json_encode( $e->getMessage());
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }
 }
 function getOwner($id){
@@ -35,7 +30,7 @@ function getOwner($id){
     $sql = "SELECT * FROM ownertable WHERE id=:id";
     try {
       $answer = checkAuthKey();
-      if($answer['data'] == 'correct'){
+      if($answer['status'] == 'success'){
         $dbCon = getConnection();
         $stmt = $dbCon->prepare($sql);
         //$stmt->bindParam(':calories', $calories, PDO::PARAM_INT);
@@ -44,19 +39,20 @@ function getOwner($id){
         $owner = $stmt->fetchObject();
         $dbCon = null;
         if ($owner) {
-          echo json_encode($owner);
+          echo json_encode(array("status" => "success" ,"data" => $owner));
+          //echo json_encode($owner);
         } else {
           throw new ResourceNotFoundException();
         }
       } else{
         $app->response()->status(401);
-        echo json_encode(array("No Access"));
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
       }
     } catch (ResourceNotFoundException $e) {
-        $app->log->debug("THIS IS ERRROR");
         $app->response()->status(404);
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Resource not found'));
     } catch(PDOException $e) {
         $app->response()->status(500);
-        echo json_encode( $e->getMessage());
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }
 }

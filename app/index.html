@@ -31,12 +31,13 @@
           <span ng-bind="user ? 'User: ' + (user.name | lowercase): 'framework'"></span>
           <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
         </h3>
+        <div class="help-block has-error" ng-if="error.status">{{error.message}}</div>
       </div>
     </script>
 
     <div class="container">
       <div ng-include="'header.html'"></div>
-      <div ng-view="" class="slide-animation"></div>
+      <div class="slide-animation" ng-view></div>
       <div class="footer" style="clear:both;">
         <p>♥</p>
       </div>

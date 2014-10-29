@@ -11,7 +11,7 @@ angular.module('frameworkApp')
 
       // query
       var _requery = (function me(){
-        $scope.items = Items.query();
+        Items.query(function(data){ $scope.items = data.data; });
         return me;
       })();
 

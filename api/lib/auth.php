@@ -12,16 +12,9 @@ function accessCreds($name, $sql){
   } catch(PDOException $e) {
     $app->response()->status(500);
     header("Content-Type: application/json");
-    echo json_encode(array("error" => $e->getMessage()));
-    exit;
+    echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
+    //echo json_encode(array("error" => $e->getMessage()));
   }
-}
-
-function retSomething(){
-  $answer = checkAuthKey();
-  header("Content-Type: application/json");
-  echo json_encode($answer);
-  exit;
 }
 
 function checkAuthKey(){
@@ -32,19 +25,20 @@ function checkAuthKey(){
     $key     = $headers->get('auth-token');
 
     if($user == 'guest' || $user == ''){
-      return array("data" => "Guest User");
+      return array("status" => "error" ,"data" => "Guest User");
     } else {
       $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
       if( $creds && $creds->key == $key){
-        return array("data" => "correct");
+        return array("status" => "success" ,"data" => "correct");
       } else {
         $app->response()->status(401);
-        return array("data" => "Incorrect Pass");
+        return array("status" => "error", "message" => 'Exception: ' . 'Unauthorized');
       }
     }
   } catch(Exception $e){
     $app->response()->status(500);
-    return array("error" => $e->getMessage());
+    return array("status" => "error", "message" => 'Exception: ' . $e->getMessage());
+    //return array("error" => $e->getMessage());
   }
 }
 
@@ -58,25 +52,21 @@ function getAuthKey() {
     if($user == 'guest' || $user == ''){
       header("Content-Type: application/json");
       echo json_encode(array("data" => "Guest User"));
-      exit;
     } else {
       $creds = accessCreds($user, "SELECT `password` FROM creds WHERE name=:name LIMIT 10");
       if( $creds && $creds->password == $pass){
         $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
         header("Content-Type: application/json");
-        echo json_encode(array("data" => $creds->key));
-        exit;
+        echo json_encode(array("status" => "success" ,"data" => $creds->key));
       }else{
         $app->response()->status(401);
         header("Content-Type: application/json");
-        echo json_encode(array("data" => "Incorrect Pass"));
-        exit;
+        echo json_encode(array("status" => "error" ,"data" => "Incorrect Password"));
       }
     }
   } catch(Exception $e){
     $app->response()->status(500);
     header("Content-Type: application/json");
-    echo json_encode(array("error" => $e->getMessage()));
-    exit;
+    echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
   }
 }

@@ -1,5 +1,5 @@
 
-<div class="row marketing" ng-if="!errors">
+<div class="row marketing">
   <h3>OWNERS</h3>
   <a class="owners" ng-repeat="owner in owners | limitTo: 5" ng-href="#/owners/{{::owner.id}}">
     <h4>{{::owner.rptOwnerName}}</h4>
@@ -21,7 +21,4 @@
       </a>
     </div>
   </div>
-</div>
-<div ng-if="errors">
-  <p>{{errors}}</p>
 </div>

@@ -1,8 +1,9 @@
 <?php
   require 'vendor/autoload.php';
   require_once 'lib/mysql.php';
-  require_once 'lib/func.php';
+  class ResourceNotFoundException extends Exception {}
   require_once 'lib/auth.php';
+  require_once 'lib/owners.php';  
   require_once 'lib/items.php';
 
   $app = new \Slim\Slim(array(
@@ -29,7 +30,6 @@
 
   // Authorization
   $app->post('/login', 'getAuthKey');
-  $app->post('/auth',  'retSomething');
 
   $app->run();
 ?>

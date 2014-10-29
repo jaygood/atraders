@@ -7,7 +7,8 @@
 angular.module('frameworkApp')
   .factory('Items', ['$resource', 'API_PATH', function($resource, API_PATH){
     return $resource(API_PATH + '/items/:id', {id: '@id'}, {
-      update: { method: 'PUT' }
+      update: { method:  'PUT' },
+      query:  { isArray: false}
     });
   }])
 

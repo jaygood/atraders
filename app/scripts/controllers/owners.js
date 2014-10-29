@@ -7,10 +7,10 @@ angular.module('frameworkApp')
   .controller('OwnersCtrl', ['$scope', '$routeParams', 'Owners',
     function($scope, $routeParams, Owners){
     Owners.query(function(data){
-      if(data[0] == "No Access"){
-        $scope.errors = "Please log in";
-      } else{
-        $scope.owners = data;
+      if(data.status != 'success'){
+        //$scope.errors = data.message;
+      }else{
+        $scope.owners = data.data;
       }
     });
 
