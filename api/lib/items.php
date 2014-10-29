@@ -19,14 +19,11 @@ function postItem() {
       $dbCon = null;
     } else{
       $app->response()->status(401);
-      //echo json_encode(array("No Access"));
       echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
     }
   } catch(PDOException $e) {
-      //http_response_code(500);
       $app->response()->status(500);
       echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
-      //echo json_encode(array("error" => $e->getMessage()));
   }
 }
 function putItem($id) {
@@ -97,7 +94,6 @@ function getItems() {
         echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
       }
     } catch(PDOException $e) {
-        //http_response_code(500);
         $app->response()->status(500);
         echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }

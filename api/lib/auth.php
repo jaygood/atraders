@@ -13,7 +13,6 @@ function accessCreds($name, $sql){
     $app->response()->status(500);
     header("Content-Type: application/json");
     echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
-    //echo json_encode(array("error" => $e->getMessage()));
   }
 }
 
@@ -38,7 +37,6 @@ function checkAuthKey(){
   } catch(Exception $e){
     $app->response()->status(500);
     return array("status" => "error", "message" => 'Exception: ' . $e->getMessage());
-    //return array("error" => $e->getMessage());
   }
 }
 

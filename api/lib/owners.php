@@ -16,11 +16,9 @@ function getOwners() {
       } else{
         $app->response()->status(401);
         echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
-        //echo json_encode(array("No Access"));
       }
     } catch(PDOException $e) {
         $app->response()->status(500);
-        //echo json_encode( $e->getMessage());
         echo json_encode(array("status" => "error", "message" => 'Exception: ' . $e->getMessage()));
     }
 }
@@ -40,7 +38,6 @@ function getOwner($id){
         $dbCon = null;
         if ($owner) {
           echo json_encode(array("status" => "success" ,"data" => $owner));
-          //echo json_encode($owner);
         } else {
           throw new ResourceNotFoundException();
         }
