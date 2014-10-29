@@ -3,12 +3,13 @@
  *
  */
 
+
 'use strict';
 angular.module('frameworkApp')
   .factory('Items', ['$resource', 'API_PATH', function($resource, API_PATH){
     return $resource(API_PATH + '/items/:id', {id: '@id'}, {
       update: { method:  'PUT' },
-      query:  { isArray: false}
+      query:  { isArray: true}
     });
   }])
 
@@ -24,7 +25,8 @@ angular.module('frameworkApp')
         _items.splice(_search(this.id, _items), 1);
       };
     };
-    funct.query = function(){
+    funct.query = function(cb){
+      cb(_items)
       return _items;
     };
 

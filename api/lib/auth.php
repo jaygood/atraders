@@ -16,27 +16,27 @@ function accessCreds($name, $sql){
   }
 }
 
-function checkAuthKey(){
+function verifyKey() {
   global $app;
   try{
     $headers = $app->request->headers;
     $user    = $headers->get('name');
     $key     = $headers->get('auth-token');
-
     if($user == 'guest' || $user == ''){
-      return array("status" => "error" ,"data" => "Guest User");
+      $app->status(400);
+      echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
+      $app->stop();
     } else {
       $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
-      if( $creds && $creds->key == $key){
-        return array("status" => "success" ,"data" => "correct");
+      if( $creds && ($creds->key == $key)){
       } else {
-        $app->response()->status(401);
-        return array("status" => "error", "message" => 'Exception: ' . 'Unauthorized');
+        $app->status(400);
+        echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
+        $app->stop();
       }
     }
-  } catch(Exception $e){
-    $app->response()->status(500);
-    return array("status" => "error", "message" => 'Exception: ' . $e->getMessage());
+  } catch(Exception $e) {
+    $app->stop();
   }
 }
 

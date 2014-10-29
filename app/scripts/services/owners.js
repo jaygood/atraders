@@ -10,8 +10,8 @@ angular.module('frameworkApp')
     });
   }])
 
-  .factory('OwnersMock', function(){
-    var owns = [{
+  .factory('Owners.mock', function(){
+    var _owners = [{
       id: 1,
       rptOwnerCik: '0001610900',
       rptOwnerName: '1987-1988 Richard C Blum Irrevocable Childrens Trust',
@@ -69,10 +69,10 @@ angular.module('frameworkApp')
   ];
     return {
       get: function(arg){
-        return owns[arg.id - 1];
+        return _owners[arg.id - 1];
       },
       query: function(){
-        return owns;
+        return _owners;
       }
     };
   });

@@ -20,7 +20,9 @@ angular.module('frameworkApp')
     };
     // search database with the ownerNumb value
     $scope.searchOwners = function(arg){
-      $scope.oneOwner.data = Owners.get({id: arg});
+      $scope.oneOwner = Owners.get({id: arg}, function(data){
+        console.log(data);
+      });
     };
 
     // currently only used for owner view
