@@ -1,24 +1,24 @@
 /*
  *  Control interactions with the login and sign-up views
- *  between the token and the blurService
+ *  between the User and the blurService
  */
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('LoginCtrl', ['$scope', 'blurService', 'token',
-    function ($scope, blurService, token) {
+  .controller('LoginCtrl', ['$scope', 'blurService', 'User',
+    function ($scope, blurService, User) {
       // Hash that keeps track of which inputs have been blurred
       $scope.blurHash = blurService.blurHash;
-      $scope.user = token.formUser;
+      $scope.user = User;
 
       // determines which view to show
-      $scope.isSignupForm = token.isSignupRoute();
+      $scope.isSignupForm = User.isSigningUp();
 
       // submits either the signup or login form
       // depending on the current view
       $scope.submit = function(user){
         if ($scope.userForm.$valid){
-          token.submit(user);
+          User.login(user);
         }
       };
 

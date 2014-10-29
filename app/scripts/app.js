@@ -6,8 +6,8 @@ angular.module('frameworkApp', [
   'ngRoute',
   'ngResource',
   'ngMessages',
-  //'jdResource'
-  'jdResource.mock'
+  'jdResource'
+  //'jdResource.mock'
 ])
   // set to true for automatic login
   // code is in auth service
@@ -48,14 +48,14 @@ angular.module('frameworkApp', [
       });
   }])
 
-  .run(['$rootScope', '$location', 'token', 'DEV_MODE',
-  function ($rootScope,  $location, token, DEV_MODE) {
+  .run(['$rootScope', '$location', 'User', 'DEV_MODE',
+  function ($rootScope,  $location, User, DEV_MODE) {
 
     // restricts access to certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
       if(!DEV_MODE){
       if (next.$$route.isRestricted){
-        if (!token.getUser()) {
+        if (!User.loggedIn) {
           console.log('DENY');
           event.preventDefault();
           $location.path('/login');

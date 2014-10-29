@@ -21,15 +21,15 @@
         <ul class="nav nav-pills pull-right" jd-active-class="active">
           <li><a ng-href="#/">Home</a></li>
           <li><a ng-href="#/about">About</a></li>
-          <li ng-if="user"><a ng-href="#/owners">Owners</a></li>
-          <li ng-if="user"><a ng-href="#/dashboard">Dashboard</a></li>
-          <li ng-if="!user"><a ng-href="#/login">Login</a></li>
-          <li ng-if="!user"><a ng-href="#/signup">Sign Up</a></li>
+          <li ng-if="user.loggedIn"><a ng-href="#/owners">Owners</a></li>
+          <li ng-if="user.loggedIn"><a ng-href="#/dashboard">Dashboard</a></li>
+          <li ng-if="!user.loggedIn"><a ng-href="#/login">Login</a></li>
+          <li ng-if="!user.loggedIn"><a ng-href="#/signup">Sign Up</a></li>
         </ul>
 
         <h3 class="text-muted">
-          <span ng-bind="user ? 'User: ' + (user.name | lowercase): 'framework'"></span>
-          <a class="btn" ng-if="user" ng-click="logout()">Logout</a>
+          <span ng-bind="user.name ? 'User: ' + (user.name | lowercase): 'framework'"></span>
+          <a class="btn" ng-if="user.loggedIn" ng-click="logout()">Logout</a>
         </h3>
         <div class="help-block has-error" ng-if="error.status">{{error.message}}</div>
       </div>
@@ -98,6 +98,7 @@
     <script src="scripts/services/resource.js"></script>
     <script src="scripts/services/resource.mock.js"></script>
     <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/user.js"></script>
     <script src="scripts/directives/activetab.js"></script>
     <script src="scripts/filters/user.js"></script>
     <!-- endbuild -->
