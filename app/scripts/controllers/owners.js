@@ -15,7 +15,7 @@ angular.module('frameworkApp')
     });
 
     // initiation for input box
-    $scope.oneOwner = {
+    $scope.search = {
       number: 1
     };
     // search database with the ownerNumb value

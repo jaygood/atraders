@@ -5,7 +5,7 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('DashCtrl', ['$scope', 'Items.mock',
+  .controller('DashCtrl', ['$scope', 'Items',
     function ($scope, Items) {
       $scope.item = new Items;
       // query
@@ -25,11 +25,12 @@ angular.module('frameworkApp')
       $scope.submit = function(item){
         if ($scope.itemForm.$valid){
           // if the item exists, update... if not, save new
-          if(item.id || item.id === 0){
-            item.$update(_requery);
-          } else{
-            item.$save(_requery);
-          }
+          item.$save(_requery);
+          // if(item.id || item.id === 0){
+          //   item.$update(_requery);
+          // } else{
+          //   item.$save(_requery);
+          // }
           $scope.item = new Items;
           $scope.itemForm.$setPristine();
           // refocuses on first input to add new item

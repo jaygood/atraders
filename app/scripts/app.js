@@ -5,10 +5,13 @@ angular.module('frameworkApp', [
   'ngSanitize',
   'ngRoute',
   'ngResource',
-  'ngMessages'
+  'ngMessages',
+  'jdResource'
+  //'jdResource.mock'
 ])
   // set to true for automatic login
-  .constant('DEV_MODE', true)
+  // code is in auth service
+  .constant('DEV_MODE', false)
   .constant('API_PATH', '/site/api')
 
   .config(['$routeProvider', function ($routeProvider) {

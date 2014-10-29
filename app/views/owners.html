@@ -9,8 +9,8 @@
   <hr>
   <h3>CHOOSE OWNER</h3>
   <div>
-    <input type="text" ng-model="oneOwner.number">
-    <button class="btn btn-default" ng-click="searchOwners(oneOwner.number)">Search</button>
+    <input type="text" ng-model="search.number">
+    <button class="btn btn-default" ng-click="searchOwners(search.number)">Search</button>
     <!-- id used for testing purposes-->
     <div id="color-change" style="border-radius: 1em;padding:.5em;" ng-show="oneOwner.data.id"
         ng-class="{myred: (oneOwner.data.id % 2), mygreen: (oneOwner.data.id && !(oneOwner.data.id % 2))}">
