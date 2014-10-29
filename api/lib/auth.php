@@ -23,14 +23,14 @@ function verifyKey() {
     $user    = $headers->get('name');
     $key     = $headers->get('auth-token');
     if($user == 'guest' || $user == ''){
-      $app->status(400);
+      $app->status(401);
       echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
       $app->stop();
     } else {
       $creds = accessCreds($user, "SELECT `key` FROM creds WHERE name=:name LIMIT 10");
       if( $creds && ($creds->key == $key)){
       } else {
-        $app->status(400);
+        $app->status(401);
         echo json_encode(array("status" => "error", "message" => 'Exception: ' . 'Unauthorized'));
         $app->stop();
       }
