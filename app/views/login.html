@@ -12,8 +12,8 @@
     <div class="form-group" ng-class="{'has-error': userForm.name.$invalid && !userForm.name.$pristine}">
       <label for="name">Username</label>
       <input type="text" name="name" class="form-control" placeholder="Enter a name" required
-        ng-model="user.name" minlength="3" maxlength="8" ng-blur="addBlur('name')" jd-focus>
-      <div class="help-block" ng-if="blurHash.name" ng-messages="userForm.name.$error"
+        ng-model="user.name" minlength="3" maxlength="8" ng-blur="Blur.add('name')" jd-focus>
+      <div class="help-block" ng-if="Blur.hash.name" ng-messages="userForm.name.$error"
           ng-messages-include="userform-messages" ng-messages-multiple></div>
     </div>
 
@@ -22,8 +22,8 @@
       <label for="pass">Password</label>
       <input type="password" name="pass" class="form-control" placeholder="Enter a password" required
         ng-model="user.pass" ng-minlength="3" ng-maxlength="8"
-        ng-blur="addBlur('pass')">
-      <div class="help-block" ng-if="blurHash.pass" ng-messages="userForm.pass.$error"
+        ng-blur="Blur.add('pass')">
+      <div class="help-block" ng-if="Blur.hash.pass" ng-messages="userForm.pass.$error"
           ng-messages-include="userform-messages"></div>
     </div>
 
@@ -32,8 +32,8 @@
         ng-if="isSignupForm">
       <label for="email">Email</label>
       <input type="email" name="email" class="form-control" placeholder="Enter an email" ng-required="isSignupForm"
-        ng-model="user.email" ng-blur="addBlur('email')">
-      <div class="help-block" ng-if="blurHash.email" ng-messages="userForm.email">
+        ng-model="user.email" ng-blur="Blur.add('email')">
+      <div class="help-block" ng-if="Blur.hash.email" ng-messages="userForm.email">
         <div ng-message="$invalid">Enter a valid email.</div>
       </div>
     </div>

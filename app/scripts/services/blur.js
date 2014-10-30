@@ -5,18 +5,18 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .service('blurService', function () {
+  .service('Blur', function () {
     // initialize and used for reset
-    this.resetBlurHash = (function me(that){
+    this.reset = (function me(that){
       // map holds values used to determine error messages on login form
-      that.blurHash = {};
+      that.hash = {};
       return function(){me(that);};
     })(this);
 
     // called from login controllers
     // ng-blur="addBlur('username')"
-    this.addBlur = function(input){
-      this.blurHash[input] = true;
+    this.add = function(input){
+      this.hash[input] = true;
     };
   });
 

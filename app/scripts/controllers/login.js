@@ -5,10 +5,10 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('LoginCtrl', ['$scope', 'blurService', 'User',
-    function ($scope, blurService, User) {
+  .controller('LoginCtrl', ['$scope', 'Blur', 'User',
+    function ($scope, Blur, User) {
       // Hash that keeps track of which inputs have been blurred
-      $scope.blurHash = blurService.blurHash;
+      $scope.blurHash = Blur;
       $scope.user = User;
 
       // determines which view to show
@@ -20,10 +20,5 @@ angular.module('frameworkApp')
         if ($scope.userForm.$valid){
           User.login(user);
         }
-      };
-
-      // called when user blurs an input
-      $scope.addBlur = function(input){
-        blurService.addBlur(input);
       };
   }]);

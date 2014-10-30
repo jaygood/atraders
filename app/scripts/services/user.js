@@ -8,6 +8,7 @@ angular.module('frameworkApp')
   .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth',
     function($rootScope, $location, DEV_MODE, Auth){
       var _user = this;
+      this.loggedIn = false;
 
       this.login = function(user){
         Auth.assignHeaders(user, function(name){
@@ -21,7 +22,7 @@ angular.module('frameworkApp')
       this.logout = function(){
         Auth.removeHeaders();
         delete _user.name;
-        delete _user.loggedIn;
+        _user.loggedIn = false;
         $rootScope.$emit('logoutEvent');
       };
 
