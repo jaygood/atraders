@@ -11,29 +11,16 @@ describe("E2E: Testing Routes", function() {
     });
   });
 
-  describe('about', function() {
+  describe('login', function() {
     beforeEach(function(){
-      browser.get('#/about');
+      browser.get('#/login');
     });
     it('should have route', function() {
-      expect(browser.getLocationAbsUrl()).toMatch(/\/about$/);
+      expect(browser.getLocationAbsUrl()).toMatch(/\/login$/);
     });
 
     it('should have correct view', function() {
-      expect(element.all(by.css('[ng-view] h1')).first().getText()).toMatch(/About/);
-    });
-  });
-
-  describe('owners', function() {
-    beforeEach(function(){
-      browser.get('#/owners');
-    });
-    it('should have route', function() {
-      expect(browser.getLocationAbsUrl()).toMatch(/\/owners$/);
-    });
-
-    it('should have correct view', function() {
-      expect(element.all(by.css('.row h3')).first().getText()).toMatch(/Owners/i);
+      expect(element.all(by.css('legend')).first().getText()).toMatch(/My\sForm/);
     });
   });
 

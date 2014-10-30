@@ -6,8 +6,8 @@ angular.module('frameworkApp', [
   'ngRoute',
   'ngResource',
   'ngMessages',
-  //'jdResource'
-  'jdResource.mock'
+  'jdResource',
+  //'jdResource.mock'
 ])
   // set to true for automatic login
   // code is in auth service and bottom of this page

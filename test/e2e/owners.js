@@ -4,7 +4,18 @@ describe("E2E: Testing Owners", function() {
     beforeEach(function(){
       browser.get('#/owners');
     });
-    var number = element(by.model('oneOwner.number'));
+
+    describe('routing', function() {
+      it('should have route', function() {
+        expect(browser.getLocationAbsUrl()).toMatch(/\/owners$/);
+      });
+
+      it('should have correct view', function() {
+        expect(element.all(by.css('.row h3')).first().getText()).toMatch(/Owners/i);
+      });
+    });
+
+    var number = element(by.model('search.number'));
     var button = element(by.tagName('button'));
     var owners = element.all(by.repeater('owner in owners').column('rptOwnerName'));
     var result;
