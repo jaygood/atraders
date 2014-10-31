@@ -1,5 +1,5 @@
 /*
- *  Test Auth service
+ *  Test Owners Controller
  *
  */
 
@@ -33,7 +33,11 @@ describe('Owners Controller', function() {
   beforeEach(inject(function($rootScope, $controller, $injector){
     data = {status: 'success', data: _owners};
     scope = $rootScope.$new();
-    ctrl = $controller('OwnersCtrl', { '$scope': scope });
+    //ctrl = $controller('OwnersCtrl', { '$scope': scope });
+    ctrl = $controller('OwnersCtrl', {
+      $scope: scope,
+      $routeParams: { id: 1 }
+    });
     path = $injector.get('API_PATH');
     $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');

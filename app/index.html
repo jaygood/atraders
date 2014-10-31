@@ -1,8 +1,9 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="frameworkApp">
+  <!-- ng-strict-di -->
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title ng-bind="title"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -14,8 +15,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <!-- ng-strict-di -->
- <body ng-app="frameworkApp"  >
+  <body>
 
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationCtrl">
