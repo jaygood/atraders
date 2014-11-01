@@ -2,7 +2,7 @@
 describe("E2E: Testing Routes", function() {
 // beforeEach(function(){ /*browser.sleep(100); */  });
 
-  describe('root', function(){
+  describe('main page', function(){
     beforeEach(function(){
       browser.get('#/');
     });
