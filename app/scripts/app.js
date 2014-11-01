@@ -58,6 +58,7 @@ angular.module('frameworkApp', [
         });
   }])
 
+  // TODO - add local storage for app
   // will fill headers with local data
   // app.run(['Auth', function (Auth) {
   //     Auth.fillAuthData();
@@ -71,8 +72,6 @@ angular.module('frameworkApp', [
       console.log('root', $rootScope.title);
       console.log(current.$$route.title);
     });
-
-
 
     // restricts access to certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
