@@ -1,5 +1,6 @@
 /*
- *  Login Service
+ *  Auth Service
+ *  Talks with Login Service
  *  Keeps track of authentication and headers
  */
 
