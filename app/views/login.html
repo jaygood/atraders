@@ -5,7 +5,7 @@
 </script>
 
 <div class="col-sm-6" style="padding:2em 0">
-  <form name="userForm" ng-submit="submit(user)" novalidate><fieldset>
+  <form name="userForm" ng-submit="submit()" novalidate><fieldset>
     <legend>Login / Sign Up</legend>
 
     <!-- USERNAME -->
@@ -37,6 +37,13 @@
         <div ng-message="$invalid">Enter a valid email.</div>
       </div>
     </div>
+
+    <!-- REMEMBER -->
+    <div class="form-group">
+      <label for="remember">Remember Me: </label>
+      <input type="checkbox" name="remember" ng-model="user.remember">
+    </div>
+
     <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
   </fieldset>
   </form>

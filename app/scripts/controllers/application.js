@@ -5,7 +5,7 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .controller('ApplicationCtrl', ['$scope', 'User', 'Local', function ($scope, User, Local) {
+  .controller('ApplicationCtrl', ['$scope', 'User', function ($scope, User) {
     // watch login and logout
     // * simple assignment cannot be used
     // * because of the user object is not
@@ -29,7 +29,4 @@ angular.module('frameworkApp')
     $scope.logout = function(){
       User.logout();
     };
-
-    Local.set();
-
   }]);

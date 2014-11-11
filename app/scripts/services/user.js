@@ -5,17 +5,16 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth',
-    function($rootScope, $location, DEV_MODE, Auth){
+  .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth', 'Storage',
+    function($rootScope, $location, DEV_MODE, Auth, Storage){
       var _user = this;
       this.loggedIn = false;
 
-      this.login = function(user){
-        Auth.assignHeaders(user, function(name){
-          _user.name = name;
+      this.login = function(){
+        Auth.assignHeaders(_user, function(token){
           _user.loggedIn = true;
           delete _user.pass;
-          $rootScope.$emit('loginEvent');
+          $rootScope.$emit('loginEvent', _user, token);
         });
       };
 
@@ -34,6 +33,8 @@ angular.module('frameworkApp')
       if (DEV_MODE){
         this.name = 'dev';
         this.pass = 'dev';
+        this.remember = true;
         this.login(_user);
+        $rootScope.$emit('loginEvent', _user, 'auth-token');
       }
   }]);

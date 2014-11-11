@@ -19,7 +19,7 @@ angular.module('frameworkApp')
         function(data){
           if(data.status === 'success'){
             _headers['auth-token'] = data.data;
-            cb(user.name);
+            cb(_headers['auth-token']);
           }else{
             console.log('login attempt failed!');
           }
