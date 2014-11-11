@@ -21,4 +21,9 @@ angular.module('frameworkApp')
           User.login(user);
         }
       };
+
+      $scope.reset = function(){
+        User.resetForm();
+        $scope.userForm.$setPristine();
+      };
   }]);

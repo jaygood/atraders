@@ -10,10 +10,7 @@ angular.module('frameworkApp')
     var _headers  = $http.defaults.headers.common;
     _headers.name = 'guest';
 
-    this.assignHeaders = function(user, cb){
-      if(user.isSigningUp()){ _headers.email = user.email; }
-      _headers.pass = user.pass;
-      _headers.name = user.name;
+    var _login = function(cb){
       Login.save(
         // success
         function(data){
@@ -28,7 +25,22 @@ angular.module('frameworkApp')
         function(e){
           console.log(e);
         });
-      delete _headers.pass;
+    };
+
+    this.assignHeaders = function(user, cb){
+      if(user.isSigningUp()){ _headers.email = user.email; }
+      _headers.name = user.name;
+
+      // if user is already logged in from last session
+      if(user.token){
+        _headers['auth-token'] = user.token;
+        cb(_headers['auth-token']);
+      }
+      else{
+        _headers.pass = user.pass;
+        _login(cb);
+        delete _headers.pass;
+      }
     };
 
     this.removeHeaders = function(){

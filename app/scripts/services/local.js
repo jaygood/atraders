@@ -12,14 +12,21 @@ angular.module('frameworkApp')
     $rootScope.$on('loginEvent', function(event, user, token) {
       if(user.remember){
         localStorageService.set('user.name', user.name);
-        localStorageService.set('user.auth-token', token);
+        localStorageService.set('user.token', token);
       }
     });
 
     $rootScope.$on('logoutEvent', function() {
+      // doesn't work for some reason
+      // localStorageService.clearAll(/user\./);
       localStorageService.remove('user.name');
-      localStorageService.remove('user.auth-token');
+      localStorageService.remove('user.token');
     });
+
+    return {
+      name:  localStorageService.get('user.name'),
+      token: localStorageService.get('user.token')
+    }
   }]);
 
 

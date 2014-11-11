@@ -9,19 +9,23 @@ angular.module('frameworkApp')
     function($rootScope, $location, DEV_MODE, Auth, Storage){
       var _user = this;
       this.loggedIn = false;
+      this.name = Storage.name;
+      this.token = Storage.token;
 
       this.login = function(){
         Auth.assignHeaders(_user, function(token){
           _user.loggedIn = true;
           delete _user.pass;
+          delete _user.token;
           $rootScope.$emit('loginEvent', _user, token);
         });
       };
 
       this.logout = function(){
         Auth.removeHeaders();
-        delete _user.name;
-        _user.loggedIn = false;
+        delete this.name;
+        delete this.token
+        this.loggedIn = false;
         $rootScope.$emit('logoutEvent');
       };
 
@@ -30,11 +34,21 @@ angular.module('frameworkApp')
         return $location.path() === '/signup';
       };
 
+      this.resetForm = function(){
+        delete this.name;
+        delete this.pass;
+        delete this.email;
+        delete this.remember;
+      };
+
       if (DEV_MODE){
         this.name = 'dev';
         this.pass = 'dev';
         this.remember = true;
-        this.login(_user);
+        this.login();
         $rootScope.$emit('loginEvent', _user, 'auth-token');
+      }
+      if(Storage.token){
+        this.login();
       }
   }]);

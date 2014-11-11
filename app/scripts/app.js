@@ -12,7 +12,7 @@ angular.module('frameworkApp', [
 ])
   // set to true for automatic login
   // code is in auth service and bottom of this page
-  .constant('DEV_MODE', true)
+  .constant('DEV_MODE', false)
   .constant('API_PATH', '/site/api')
 
 
@@ -33,12 +33,14 @@ angular.module('frameworkApp', [
         .when('/login', {
           title: 'Login',
           templateUrl: 'views/login.html',
-          controller: 'LoginCtrl'
+          controller: 'LoginCtrl',
+          isPrevented: true
         })
         .when('/signup', {
           title: 'Sign Up',
           templateUrl: 'views/login.html',
-          controller: 'LoginCtrl'
+          controller: 'LoginCtrl',
+          isPrevented: true
         })
         .when('/owners', {
           title: 'SEC Owners',
@@ -86,6 +88,17 @@ angular.module('frameworkApp', [
         }
         else {
           console.log('ALLOW');
+        }
+      }
+
+      if (!DEV_MODE && next.$$route.isPrevented){
+        if (User.loggedIn) {
+          console.log('DENY LOGIN');
+          event.preventDefault();
+          $location.path('/');
+        }
+        else {
+          console.log('ALLOW LOGIN');
         }
       }
     });
