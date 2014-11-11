@@ -34,7 +34,7 @@ angular.module('frameworkApp')
         return $location.path() === '/signup';
       };
 
-      this.resetForm = function(){
+      this.resetUser = function(){
         delete this.name;
         delete this.pass;
         delete this.email;

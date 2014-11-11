@@ -23,7 +23,7 @@ angular.module('frameworkApp')
       };
 
       $scope.reset = function(){
-        User.resetForm();
+        User.resetUser();
         $scope.userForm.$setPristine();
       };
   }]);
