@@ -6,16 +6,21 @@ angular.module('frameworkApp', [
   'ngRoute',
   'ngResource',
   'ngMessages',
-  'jdResource'
-  //'jdResource.mock'
+  'LocalStorageModule',
+  //'jdResource'
+  'jdResource.mock'
 ])
   // set to true for automatic login
   // code is in auth service and bottom of this page
-  .constant('DEV_MODE', false)
+  .constant('DEV_MODE', true)
   .constant('API_PATH', '/site/api')
 
-  .config(['$routeProvider', '$httpProvider',
-    function ($routeProvider, $httpProvider) {
+
+
+
+  .config(['$routeProvider', '$httpProvider', 'localStorageServiceProvider',
+    function ($routeProvider, $httpProvider, lssp) {
+      lssp.setPrefix('jd');
       // adds interceptor to all routes
       //$httpProvider.interceptors.push('authInterceptor');
 
@@ -69,24 +74,20 @@ angular.module('frameworkApp', [
     // Change titles for different views
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
       $rootScope.title = current.$$route.title;
-      console.log('root', $rootScope.title);
-      console.log(current.$$route.title);
     });
 
     // restricts access to certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
-      if(!DEV_MODE){
-      if (next.$$route.isRestricted){
+      if (!DEV_MODE && next.$$route.isRestricted){
         if (!User.loggedIn) {
           console.log('DENY');
           event.preventDefault();
           $location.path('/login');
-          //alert('Please login to continue');
         }
         else {
           console.log('ALLOW');
         }
-      }}
+      }
     });
 
     // redirects user after login
