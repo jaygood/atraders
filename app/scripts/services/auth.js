@@ -27,6 +27,7 @@ angular.module('frameworkApp')
         });
     };
 
+    // set headers for API call to get auth-token
     this.assignHeaders = function(user, cb){
       if(user.isSigningUp()){ _headers.email = user.email; }
       _headers.name = user.name;

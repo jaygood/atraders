@@ -23,24 +23,24 @@ angular.module('frameworkApp')
 
       this.logout = function(){
         Auth.removeHeaders();
-        delete this.name;
-        delete this.token
-        this.loggedIn = false;
+        this.resetUser();
         $rootScope.$emit('logoutEvent');
       };
 
       // versus login route
-      this.isSigningUp = function(){
-        return $location.path() === '/signup';
-      };
+      this.isSigningUp = function(){ return $location.path() === '/signup'; };
 
+      // called when form is reset or user logs out
       this.resetUser = function(){
         delete this.name;
         delete this.pass;
         delete this.email;
         delete this.remember;
+        delete this.token
+        this.loggedIn = false;
       };
 
+      // log me in, please!
       if (DEV_MODE){
         this.name = 'dev';
         this.pass = 'dev';
@@ -48,6 +48,8 @@ angular.module('frameworkApp')
         this.login();
         $rootScope.$emit('loginEvent', _user, 'auth-token');
       }
+
+      // the user has auth-token from previous login
       if(Storage.token){
         this.login();
       }

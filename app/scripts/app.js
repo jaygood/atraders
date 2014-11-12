@@ -15,12 +15,11 @@ angular.module('frameworkApp', [
   .constant('DEV_MODE', false)
   .constant('API_PATH', '/site/api')
 
-
-
-
   .config(['$routeProvider', '$httpProvider', 'localStorageServiceProvider',
     function ($routeProvider, $httpProvider, lssp) {
+      // changes prefix for local storage variables
       lssp.setPrefix('jd');
+
       // adds interceptor to all routes
       //$httpProvider.interceptors.push('authInterceptor');
 
@@ -78,7 +77,7 @@ angular.module('frameworkApp', [
       $rootScope.title = current.$$route.title;
     });
 
-    // restricts access to certain views
+    // restricts access to logged in users for certain views
     $rootScope.$on('$routeChangeStart', function(event, next) {
       if (!DEV_MODE && next.$$route.isRestricted){
         if (!User.loggedIn) {
@@ -91,6 +90,7 @@ angular.module('frameworkApp', [
         }
       }
 
+      // Prevents login access after user is already logged in
       if (!DEV_MODE && next.$$route.isPrevented){
         if (User.loggedIn) {
           console.log('DENY LOGIN');

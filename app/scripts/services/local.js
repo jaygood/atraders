@@ -1,6 +1,6 @@
 /*
  *  Local Storage
- *  Sets cookies to remember the user and auth-token
+ *  Sets storage or cookies to remember the user and auth-token
  *
  */
 
