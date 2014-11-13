@@ -7,8 +7,8 @@
 angular.module('frameworkApp')
   .controller('LoginCtrl', ['$scope', 'Blur', 'User',
     function ($scope, Blur, User) {
-      // Hash that keeps track of which inputs have been blurred
-      $scope.blurHash = Blur;
+      // Map that keeps track of which inputs have been blurred
+      $scope.blur = Blur;
       $scope.user = User;
 
       // determines which view to show

@@ -1,5 +1,5 @@
 /*
- *  Service that shares a hash describing the current
+ *  Service that shares a map describing the current
  *  blur state of the input boxes
  */
 
@@ -9,14 +9,15 @@ angular.module('frameworkApp')
     // initialize and used for reset
     this.reset = (function me(that){
       // map holds values used to determine error messages on login form
-      that.hash = {};
+      that.map = {};
       return function(){me(that);};
     })(this);
 
     // called from login controllers
     // ng-blur="addBlur('username')"
     this.add = function(input){
-      this.hash[input] = true;
+      console.log(this.map);
+      this.map[input] = true;
     };
   });
 
