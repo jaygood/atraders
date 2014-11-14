@@ -13,6 +13,8 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/d3.css">
+    <link rel="stylesheet" href="styles/mymain.css">
     <!-- endbuild -->
   </head>
   <body>
@@ -21,6 +23,7 @@
       <div class="header" ng-controller="ApplicationCtrl">
         <ul class="nav nav-pills pull-right" jd-active-class="active">
           <li><a ng-href="#/">Home</a></li>
+          <li><a ng-href="#/bars">Bar Charts</a></li>
           <li ng-if="user.loggedIn"><a ng-href="#/owners">Owners</a></li>
           <li ng-if="user.loggedIn"><a ng-href="#/dashboard">Dashboard</a></li>
           <li ng-if="!user.loggedIn"><a ng-href="#/login">Login</a></li>
@@ -38,8 +41,8 @@
     <div class="container">
       <div ng-include="'header.html'"></div>
       <div class="slide-animation" ng-view></div>
-      <div class="footer" style="clear:both;">
-        <p>♥</p>
+      <div class="footer">
+        <p>fin</p>
       </div>
     </div>
 
@@ -88,6 +91,8 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.js"></script>
+
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
@@ -103,6 +108,11 @@
     <script src="scripts/services/interceptor.js"></script>
     <script src="scripts/directives/activetab.js"></script>
     <script src="scripts/filters/user.js"></script>
+    <script src="scripts/filters/percent.js"></script>
+
+    <script src="scripts/controllers/bars.js"></script>
+    <script src="scripts/directives/bar-chart.js"></script>
+
     <!-- endbuild -->
 </body>
 </html>

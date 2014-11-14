@@ -1,31 +1,33 @@
-<div class="col-sm-6" style="padding:2em 0">
-  <form name="itemForm" ng-submit="submit(item)" novalidate><fieldset>
-    <legend>Dashboard</legend>
+<div class="row marketing">
+  <div class="col-sm-6">
+    <form name="itemForm" ng-submit="submit(item)" novalidate><fieldset>
+      <legend>Dashboard</legend>
 
-    <!-- USERNAME -->
-    <div class="form-group" ng-class="{'has-error': itemForm.name.$invalid && !itemForm.name.$pristine}">
-      <label for="name">Name</label>
-      <input type="text" name="name" class="form-control" placeholder="Enter a name" required
-        ng-model="item.name" ng-minlength="3" ng-maxlength="15" jd-focus>
-    </div>
+      <!-- USERNAME -->
+      <div class="form-group" ng-class="{'has-error': itemForm.name.$invalid && !itemForm.name.$pristine}">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter a name" required
+          ng-model="item.name" ng-minlength="3" ng-maxlength="15" jd-focus>
+      </div>
 
-    <!-- PHRASE -->
-    <div class="form-group" ng-class="{'has-error': itemForm.phrase.$invalid && !itemForm.phrase.$pristine}">
-      <label for="phrase">Phrase</label>
-      <input type="text" name="phrase" class="form-control" placeholder="Enter a Phrase"
-        ng-model="item.phrase" ng-model-options="{debounce: 1000}">
-    </div>
+      <!-- PHRASE -->
+      <div class="form-group" ng-class="{'has-error': itemForm.phrase.$invalid && !itemForm.phrase.$pristine}">
+        <label for="phrase">Phrase</label>
+        <input type="text" name="phrase" class="form-control" placeholder="Enter a Phrase"
+          ng-model="item.phrase" ng-model-options="{debounce: 1000}">
+      </div>
 
-    <button type="submit" class="btn btn-primary" ng-disabled="itemForm.$invalid">Submit</button>
-  </fieldset>
-  </form>
+      <button type="submit" class="btn btn-primary" ng-disabled="itemForm.$invalid">Submit</button>
+    </fieldset>
+    </form>
+  </div>
+
+  <ul id="dash-repeat">
+    <li ng-repeat="item in items">
+      <h5>{{item.name}}</h5>
+      {{item.phrase}}
+      <a class="btn" ng-click="deleteItem(item)">Remove</a>
+      <a class="btn" ng-click="editItem(item)">Edit</a>
+    </li>
+  </ul>
 </div>
-
-<ul style="clear:both">
-  <li ng-repeat="item in items">
-    <h5>{{item.name}}</h5>
-    {{item.phrase}}
-    <a class="btn" ng-click="deleteItem(item)">Remove</a>
-    <a class="btn" ng-click="editItem(item)">Edit</a>
-  </li>
-</ul>

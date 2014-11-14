@@ -1,10 +1,19 @@
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-
-.noth{}
-/* something is causing the first class to not be used */
 .owners{
   text-decoration: none;
   color: black;
+}
+
+#chosen-owner{
+  border-radius: 1em;
+  padding:.5em;
+  margin-top:1em;
+}
+#chosen-owner h4{
+  margin-bottom:0;
+}
+
+#dash-repeat{
+  float:right;
 }
 
 .mygreen{
@@ -15,6 +24,9 @@
   background-color:palevioletred;
 }
 
+.footer{
+  clear: both;
+}
 
 a:hover{
   text-decoration:none;
