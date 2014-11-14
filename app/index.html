@@ -31,9 +31,26 @@
         </ul>
 
         <h3 class="text-muted">
+          <span ng-if="!user.name">framework</span>
+          <span class="dropdown" ng-if="user.name">
+            <span id="user-name" class="btn btn-lg" data-toggle="dropdown">
+              <span ng-bind="user.name | lowercase"></span>
+              <span class="caret"></span>
+            </span>
+            <ul class="dropdown-menu" role="menu">
+              <li><a role="menuitem" tabindex="-1" ng-click="logout()">Logout</a></li>
+              <li><a role="menuitem" tabindex="-1" ng-href="#/dashboard">Dashboard</a></li>
+            </ul>
+          </span>
+        </h3>
+
+<!--
+        <h3 class="text-muted">
           <span ng-bind="user.name ? 'User: ' + (user.name | lowercase): 'framework'"></span>
           <a class="btn" ng-if="user.loggedIn" ng-click="logout()">Logout</a>
         </h3>
+
+-->
         <div class="help-block has-error" ng-if="error.status">{{error.message}}</div>
       </div>
     </script>
