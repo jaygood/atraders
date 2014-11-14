@@ -81,24 +81,24 @@ angular.module('frameworkApp', [
     $rootScope.$on('$routeChangeStart', function(event, next) {
       if (!DEV_MODE && next.$$route.isRestricted){
         if (!User.loggedIn) {
-          console.log('DENY');
+          console.log('DENY: ', next.$$route.originalPath);
           event.preventDefault();
           $location.path('/login');
         }
         else {
-          console.log('ALLOW');
+          console.log('ALLOW: ', next.$$route.originalPath);
         }
       }
 
       // Prevents login access after user is already logged in
       if (!DEV_MODE && next.$$route.isPrevented){
         if (User.loggedIn) {
-          console.log('DENY LOGIN');
+          console.log('DENY: ', next.$$route.originalPath);
           event.preventDefault();
           $location.path('/');
         }
         else {
-          console.log('ALLOW LOGIN');
+          console.log('ALLOW: ', next.$$route.originalPath);
         }
       }
     });

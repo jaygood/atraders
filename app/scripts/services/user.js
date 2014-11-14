@@ -5,17 +5,14 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth', 'Storage',
-    function($rootScope, $location, DEV_MODE, Auth, Storage){
-      var _user = this;
-      this.loggedIn = false;
-
-      this.login = function(){
-        Auth.getToken(_user, function(token){
-          _user.loggedIn = true;
-          delete _user.pass;
-          delete _user.token;
-          $rootScope.$emit('loginEvent', _user, token);
+  .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth',
+    function($rootScope, $location, DEV_MODE, Auth){
+      this.login = function(user){
+        Auth.acquireToken(user, function(token){
+          user.loggedIn = true;
+          delete user.pass;
+          delete user.token;
+          $rootScope.$emit('loginEvent', user, token);
         });
       };
 
@@ -42,11 +39,9 @@ angular.module('frameworkApp')
       if (DEV_MODE){
         this.name = 'dev';
         this.pass = 'dev';
-        this.remember = true;
-        this.login();
-        $rootScope.$emit('loginEvent', _user, 'auth-token');
+        this.login(this);
       }
 
       // the user has auth-token from previous login
-      if(Auth.isStored()){ this.login(); }
+      if(Auth.isStored()){ this.login(this); }
   }]);
