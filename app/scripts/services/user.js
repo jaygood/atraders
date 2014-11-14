@@ -9,11 +9,9 @@ angular.module('frameworkApp')
     function($rootScope, $location, DEV_MODE, Auth, Storage){
       var _user = this;
       this.loggedIn = false;
-      this.name = Storage.name;
-      this.token = Storage.token;
 
       this.login = function(){
-        Auth.assignHeaders(_user, function(token){
+        Auth.getToken(_user, function(token){
           _user.loggedIn = true;
           delete _user.pass;
           delete _user.token;
@@ -22,7 +20,7 @@ angular.module('frameworkApp')
       };
 
       this.logout = function(){
-        Auth.removeHeaders();
+        Auth.removeAll();
         this.resetUser();
         $rootScope.$emit('logoutEvent');
       };
@@ -50,7 +48,5 @@ angular.module('frameworkApp')
       }
 
       // the user has auth-token from previous login
-      if(Storage.token){
-        this.login();
-      }
+      if(Auth.isStored()){ this.login(); }
   }]);

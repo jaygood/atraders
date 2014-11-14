@@ -16,7 +16,6 @@ angular.module('frameworkApp')
     // called from login controllers
     // ng-blur="addBlur('username')"
     this.add = function(input){
-      console.log(this.map);
       this.map[input] = true;
     };
   });
