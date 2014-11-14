@@ -59,6 +59,11 @@ angular.module('frameworkApp', [
           controller: 'DashCtrl',
           isRestricted: true
         })
+        .when('/bars', {
+          title: 'd3 Bars',
+          templateUrl: 'views/bars.html',
+          controller: 'BarCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
