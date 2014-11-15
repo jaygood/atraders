@@ -22,12 +22,12 @@
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationCtrl">
         <ul class="nav nav-pills pull-right" jd-active-class="active">
-          <li><a ng-href="#/">Home</a></li>
-          <li><a ng-href="#/bars">Bar Charts</a></li>
-          <li ng-if="user.loggedIn"><a ng-href="#/owners">Owners</a></li>
-          <li ng-if="user.loggedIn"><a ng-href="#/dashboard">Dashboard</a></li>
-          <li ng-if="!user.loggedIn"><a ng-href="#/login">Login</a></li>
-          <li ng-if="!user.loggedIn"><a ng-href="#/signup">Sign Up</a></li>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/bars">Bar Charts</a></li>
+          <li ng-if="user.loggedIn"><a href="#/owners">Owners</a></li>
+          <li ng-if="user.loggedIn"><a href="#/dashboard">Dashboard</a></li>
+          <li ng-if="!user.loggedIn"><a href="#/login">Login</a></li>
+          <li ng-if="!user.loggedIn"><a href="#/signup">Sign Up</a></li>
         </ul>
 
         <h3 class="text-muted">
@@ -39,18 +39,10 @@
             </span>
             <ul class="dropdown-menu" role="menu">
               <li><a role="menuitem" tabindex="-1" ng-click="logout()">Logout</a></li>
-              <li><a role="menuitem" tabindex="-1" ng-href="#/dashboard">Dashboard</a></li>
+              <li><a role="menuitem" tabindex="-1" href="#/dashboard">Dashboard</a></li>
             </ul>
           </span>
         </h3>
-
-<!--
-        <h3 class="text-muted">
-          <span ng-bind="user.name ? 'User: ' + (user.name | lowercase): 'framework'"></span>
-          <a class="btn" ng-if="user.loggedIn" ng-click="logout()">Logout</a>
-        </h3>
-
--->
         <div class="help-block has-error" ng-if="error.status">{{error.message}}</div>
       </div>
     </script>
