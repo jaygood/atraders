@@ -6,42 +6,38 @@
 
 'use strict';
 angular.module('frameworkApp')
-  .service('Auth', ['$http', 'Login', 'localStorageService', function($http, Login, lss){
-    var _headers  = $http.defaults.headers.common,
-        _login;
-
-    // TODO convert login to return a promise
-    // instead of using callback
-    _login = function(cb, remember){
-      Login.save(function(data){
-        if(data.status === 'success'){
-          _headers['auth-token'] = data.data;
-          if(remember){
-            lss.set('user.token', _headers['auth-token']);
-            lss.set('user.name', _headers.name);
-          }
-          cb(_headers['auth-token']);
-        }else{
-          console.log('login attempt failed!');
-        }
-      }, function(e){ console.log(e); });
-      delete _headers.pass;
-    };
+  .service('Auth', ['$http', '$q', '$rootScope', 'Login', 'localStorageService',
+  function($http, $q, $rootScope, Login, lss){
+    var _headers  = $http.defaults.headers.common;
 
     // set headers for API call to get auth-token
-    this.acquireToken = function(user, cb){
+    this.acquireToken = function(user){
+      var deferred = $q.defer();
       // if user info is stored
       if(this.isStored()){
         _headers['auth-token'] = lss.get('user.token');
         _headers.name          = lss.get('user.name');
-        user.name              = _headers.name;
-        cb(lss.get('user.token'));
+        deferred.resolve(_headers['auth-token'], _headers.name);
       }else{
         _headers.name = user.name;
         _headers.pass = user.pass;
         if(user.isSigningUp()){ _headers.email = user.email; }
-        _login(cb, user.remember);
+        Login.save(function(data){ deferred.resolve(data);
+          },       function(e){ deferred.reject(e); });
+
+        delete _headers.pass;
       }
+
+      deferred.promise.then(function(data){
+        _headers['auth-token'] = data.data;
+        if(user.remember){
+          lss.set('user.token', _headers['auth-token']);
+          lss.set('user.name', _headers.name);
+        }
+        $rootScope.$emit('loginEvent', _headers['auth-token']);
+      }, function(e){ console.log(e.statusText); });
+
+      return deferred.promise;
     };
 
     this.removeAll = function(){
@@ -53,6 +49,7 @@ angular.module('frameworkApp')
       // lss.clearAll(/user\./);
       lss.remove('user.name');
       lss.remove('user.token');
+      $rootScope.$emit('logoutEvent');
     };
 
     this.isStored = function(){ return (lss.get('user.token') && lss.get('user.name')); };

@@ -7,21 +7,18 @@
 angular.module('frameworkApp')
   .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth',
     function($rootScope, $location, DEV_MODE, Auth){
-      // TODO
-      // convert login to use promise
       this.login = function(user){
-        Auth.acquireToken(user, function(token){
+        Auth.acquireToken(user).then(function(token, name){
+          if(name){ this.name = name; }
           user.loggedIn = true;
           delete user.pass;
           delete user.token;
-          $rootScope.$emit('loginEvent', user, token);
         });
       };
 
       this.logout = function(){
         Auth.removeAll();
         this.reset();
-        $rootScope.$emit('logoutEvent');
       };
 
       // versus login route
@@ -37,13 +34,13 @@ angular.module('frameworkApp')
         this.loggedIn = false;
       };
 
+      // the user has auth-token from previous login
+      if(Auth.isStored()){ this.login(this); }
+
       // log me in, please!
       if (DEV_MODE){
         this.name = 'dev';
         this.pass = 'dev';
         this.login(this);
       }
-
-      // the user has auth-token from previous login
-      if(Auth.isStored()){ this.login(this); }
   }]);
