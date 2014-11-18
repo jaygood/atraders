@@ -10,6 +10,8 @@ angular.module('frameworkApp')
     var _headers  = $http.defaults.headers.common,
         _login;
 
+    // TODO convert login to return a promise
+    // instead of using callback
     _login = function(cb, remember){
       Login.save(function(data){
         if(data.status === 'success'){

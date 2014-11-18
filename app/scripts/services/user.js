@@ -7,6 +7,8 @@
 angular.module('frameworkApp')
   .service('User', ['$rootScope', '$location', 'DEV_MODE', 'Auth',
     function($rootScope, $location, DEV_MODE, Auth){
+      // TODO
+      // convert login to use promise
       this.login = function(user){
         Auth.acquireToken(user, function(token){
           user.loggedIn = true;
@@ -18,7 +20,7 @@ angular.module('frameworkApp')
 
       this.logout = function(){
         Auth.removeAll();
-        this.resetUser();
+        this.reset();
         $rootScope.$emit('logoutEvent');
       };
 
@@ -26,7 +28,7 @@ angular.module('frameworkApp')
       this.isSigningUp = function(){ return $location.path() === '/signup'; };
 
       // called when form is reset or user logs out
-      this.resetUser = function(){
+      this.reset = function(){
         delete this.name;
         delete this.pass;
         delete this.email;

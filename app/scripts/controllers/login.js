@@ -15,15 +15,12 @@ angular.module('frameworkApp')
       $scope.isSignupForm = User.isSigningUp();
 
       // submits either the signup or login form
-      // depending on the current view
       $scope.submit = function(user){
-        if ($scope.userForm.$valid){
-          User.login(user);
-        }
+        if ($scope.userForm.$valid){ User.login(user); }
       };
 
       $scope.reset = function(){
-        User.resetUser();
+        User.reset();
         $scope.userForm.$setPristine();
       };
   }]);
