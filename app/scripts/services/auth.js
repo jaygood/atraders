@@ -17,7 +17,7 @@ angular.module('frameworkApp')
       if(this.isStored()){
         _headers['auth-token'] = lss.get('user.token');
         _headers.name          = lss.get('user.name');
-        deferred.resolve(_headers['auth-token'], _headers.name);
+        deferred.resolve({data: _headers['auth-token'], name: _headers.name});
       }else{
         _headers.name = user.name;
         _headers.pass = user.pass;
@@ -34,7 +34,7 @@ angular.module('frameworkApp')
           lss.set('user.token', _headers['auth-token']);
           lss.set('user.name', _headers.name);
         }
-        $rootScope.$emit('loginEvent', _headers['auth-token']);
+        $rootScope.$emit('loginEvent');
       }, function(e){ console.log(e.statusText); });
 
       return deferred.promise;
