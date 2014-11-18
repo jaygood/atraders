@@ -22,21 +22,25 @@ angular.module('frameworkApp')
         _headers.name = user.name;
         _headers.pass = user.pass;
         if(user.isSigningUp()){ _headers.email = user.email; }
-        Login.save(function(data){ deferred.resolve(data);
-          },       function(e){ deferred.reject(e); });
+        Login.save(function(data){
+          _headers['auth-token'] = data.data;
+          if(user.remember){
+            lss.set('user.token', _headers['auth-token']);
+            lss.set('user.name', _headers.name);
+          }
+          deferred.resolve(data);
+        }, function(e){
+          deferred.reject(e);
+        });
 
-        delete _headers.pass;
+        deferred.promise.then(function(data){
+          $rootScope.$emit('loginEvent');
+        }, function(e){
+          console.log(e.statusText)
+        }).finally(function(){
+          delete _headers.pass;
+        });
       }
-
-      deferred.promise.then(function(data){
-        _headers['auth-token'] = data.data;
-        if(user.remember){
-          lss.set('user.token', _headers['auth-token']);
-          lss.set('user.name', _headers.name);
-        }
-        $rootScope.$emit('loginEvent');
-      }, function(e){ console.log(e.statusText); });
-
       return deferred.promise;
     };
 
