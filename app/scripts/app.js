@@ -7,8 +7,9 @@ angular.module('frameworkApp', [
   'ngResource',
   'ngMessages',
   'LocalStorageModule',
-  'jdResource'
-  //'jdResource.mock'
+  'frameworkApp.stocks',
+  //'jdResource'
+  'jdResource.mock'
 ])
   // set to true for automatic login
   // code is in auth service and bottom of this page
@@ -63,6 +64,11 @@ angular.module('frameworkApp', [
           title: 'd3 Bars',
           templateUrl: 'views/bars.html',
           controller: 'BarCtrl'
+        })
+        .when('/stocks', {
+          title: 'Stocks',
+          templateUrl: 'views/stocks.html',
+          controller: 'StockCtrl'
         })
         .otherwise({
           redirectTo: '/'

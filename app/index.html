@@ -18,7 +18,6 @@
     <!-- endbuild -->
   </head>
   <body>
-
     <script type="text/ng-template" id="header.html">
       <div class="header" ng-controller="ApplicationCtrl">
         <ul class="nav nav-pills pull-right" jd-active-class="active">
@@ -26,13 +25,14 @@
           <li><a href="#/bars">Bar Charts</a></li>
           <li ng-if="user.loggedIn"><a href="#/owners">Owners</a></li>
           <li ng-if="user.loggedIn"><a href="#/dashboard">Dashboard</a></li>
+          <li ng-if="user.loggedIn"><a href="#/stocks">Stocks</a></li>
           <li ng-if="!user.loggedIn"><a href="#/login">Login</a></li>
           <li ng-if="!user.loggedIn"><a href="#/signup">Sign Up</a></li>
         </ul>
 
         <h3 class="text-muted">
           <span ng-if="!user.name">framework</span>
-          <span class="dropdown" ng-if="user.name">
+          <span ng-if="user.name" class="dropdown">
             <span id="user-name" class="btn btn-lg" data-toggle="dropdown">
               <span ng-bind="user.name | lowercase"></span>
               <span class="caret"></span>
@@ -104,23 +104,28 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/application.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/owners.js"></script>
+    <script src="scripts/controllers/bars.js"></script>
+
     <script src="scripts/services/blur.js"></script>
     <script src="scripts/services/resource.js"></script>
     <script src="scripts/services/resource.mock.js"></script>
     <script src="scripts/services/auth.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/interceptor.js"></script>
+
     <script src="scripts/directives/activetab.js"></script>
+    <script src="scripts/directives/bar-chart.js"></script>
+
     <script src="scripts/filters/user.js"></script>
     <script src="scripts/filters/percent.js"></script>
 
-    <script src="scripts/controllers/bars.js"></script>
-    <script src="scripts/directives/bar-chart.js"></script>
+    <script src="data/stocks.js"></script>
 
     <!-- endbuild -->
 </body>
