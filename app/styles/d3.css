@@ -38,7 +38,7 @@ svg{
   width: 300px;
 }
 
-svg path{
+d3-shapes svg path{
   stroke: red;
   opacity: .5;
   stroke-width: 3px;
@@ -52,5 +52,4 @@ svg text{
   font-size: 30px;
   font-family: sans-serif;
   fill:red; /* not ` color ` or ` font-color ` */
-
 }
