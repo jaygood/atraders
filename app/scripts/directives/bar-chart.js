@@ -33,20 +33,18 @@ angular.module('frameworkApp')
         var elem = d3.select(element[0]);
         var bars = elem.selectAll('.bar');
 
-        setTimeout(function(){
-          var n = Math.round(Math.random() * 9) + 1;
-          var data = d3.range(n);
-          bars = bars.data(data);
+        var n = Math.round(Math.random() * 9) + 1;
+        var data = d3.range(n);
+        bars = bars.data(data);
 
-          bars.enter().append('div')
-            .attr('class', 'bar')
+        bars.enter().append('div')
+          .attr('class', 'bar')
 
-          bars.exit().remove();
+        bars.exit().remove();
 
-          bars
-            .style('width', function(d){ return d / (n-1) * 100 + '%' })
-            .style('height', 100 / n + 'px');
-        }, 2000);
+        bars
+          .style('width', function(d){ return d / (n-1) * 100 + '%' })
+          .style('height', 100 / n + 'px');
       }
     };
   }])
@@ -106,9 +104,45 @@ angular.module('frameworkApp')
         div.append('svg')
           .append('g').attr('transform', 'translate(200, 175)')
             .selectAll('path').data(arcData).enter()
-              .append('path').attr('d', arc).style('fill', function(d, i){
-                return color(i);
-              });
+              .append('path').attr('d', arc)
+              .style('fill', function(d, i){ return color(i); });
+      }
+    };
+  }])
+
+  .directive('moreD3Shapes', [function () {
+    return {
+      restrict: 'E',
+      link: function (scope, element, attrs) {
+        var svg = d3.select(element[0]).append('svg');
+        var area = d3.svg.area()
+          .y0(100)
+          .y1(function(d){ return d.y; })
+          .x(function(d, i){ return d.x; })
+
+        var data = d3.range(100).map(function(){
+          return Math.random() * 30 + 0;
+        }).map(function(d, i){
+          return {
+            x: i * 10,
+            y: d
+          };
+        })
+
+        svg.append('path').datum(data)
+          .attr('d', area);
+
+        var line = d3.svg.line()
+          .x(function(d){ return d.x; })
+          .y(function(d){ return d.y; })
+
+        svg.append('path').datum(data).attr('d', line)
+          .attr('class', 'plot');
+
+        svg.selectAll('circle').data(data).enter().append('cirlce')
+          .attr('cx', function(d){ return d.x; })
+          .attr('cy', function(d){ return d.y; })
+          .attr('r', 3)
       }
     };
   }]);
