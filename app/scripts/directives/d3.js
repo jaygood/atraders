@@ -58,9 +58,9 @@ angular.module('frameworkApp')
 
         // sort z-index
 // circles
-        elem.selectAll('circles').sort(function(a, b){
-          return a.zIndex - b.zIndex;
-        });
+        // elem.selectAll('circles').sort(function(a, b){
+        //   return a.zIndex - b.zIndex;
+        // });
 
 // Star
         // genertator
@@ -118,10 +118,14 @@ angular.module('frameworkApp')
         var area = d3.svg.area()
           .y0(100)
           .y1(function(d){ return d.y; })
-          .x(function(d, i){ return d.x; })
+          .x(function(d){ return d.x; })
+
+        var line = d3.svg.line()
+          .x(function(d){ return d.x; })
+          .y(function(d){ return d.y; })
 
         var data = d3.range(100).map(function(){
-          return Math.random() * 30 + 0;
+          return Math.random() * 30;
         }).map(function(d, i){
           return {
             x: i * 10,
@@ -129,12 +133,7 @@ angular.module('frameworkApp')
           };
         })
 
-        svg.append('path').datum(data)
-          .attr('d', area);
-
-        var line = d3.svg.line()
-          .x(function(d){ return d.x; })
-          .y(function(d){ return d.y; })
+        svg.append('path').datum(data).attr('d', area);
 
         svg.append('path').datum(data).attr('d', line)
           .attr('class', 'plot');
@@ -142,7 +141,7 @@ angular.module('frameworkApp')
         svg.selectAll('circle').data(data).enter().append('cirlce')
           .attr('cx', function(d){ return d.x; })
           .attr('cy', function(d){ return d.y; })
-          .attr('r', 3)
+          .attr('r', 4)
       }
     };
   }]);
