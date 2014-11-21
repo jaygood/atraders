@@ -10,7 +10,7 @@ angular.module('frameworkApp.stocks', [])
         trans,
         sum;
 
-    var stocks = $resource('data/stocks.json').query(function(data){
+    var stocks = $resource('scripts/stocks/stocks.json').query(function(data){
       var max = 0;
       for(var i = 0, l = stocks.length, j, m; i < l; i++){
         trans = stocks[i].transactions;

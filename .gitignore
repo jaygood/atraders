@@ -7,4 +7,4 @@ api/lib/mysql.php
 api/composer.phar
 api/oldcheckauth
 api/vendor
-app/data/stocks.json
+app/scripts/stocks/stocks.json

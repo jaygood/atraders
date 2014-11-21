@@ -3,8 +3,8 @@
 >Connects angular services to a slim restAPI.
 >Connects php to a mysql database through PDO.
 
-# D3 on AngularJS
-Contains examples from the book by Ari Lerner and Victor Powell 
+### D3 on AngularJS
+moved to angulard3 repository
 
 ### Todo
 >Dashboard formatting for Remove and Edit buttons
